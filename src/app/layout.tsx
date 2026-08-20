@@ -5,6 +5,7 @@ import { siteConfig } from '@/content/site';
 import { media } from '@/content/media';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { BrowserDeterrents } from '@/components/global/BrowserDeterrents';
 
 // ── Font Loading ─────────────────────────────────────────────
 const syne = Syne({
@@ -117,6 +118,7 @@ export default function RootLayout({
       className={`${syne.variable} ${manrope.variable} ${instrumentSerif.variable} ${notoBengali.variable} ${barlowCondensed.variable}`}
     >
       <body className="font-body antialiased">
+        <BrowserDeterrents />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c') }}

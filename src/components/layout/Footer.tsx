@@ -9,7 +9,11 @@ export default function Footer() {
 
   return (
     <footer id="site-footer" className="editorial-footer">
-      <YGELogo className="footer-official-logo" />
+      <YGELogo
+        className="footer-official-logo"
+        imageClassName="footer-official-logo-image"
+        sizes="(min-width: 768px) 92px, 76px"
+      />
       <div className="footer-monogram" aria-hidden="true">YGE</div>
       <nav className="footer-mobile-primary" aria-label="Footer primary navigation">
         <ul>
