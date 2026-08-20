@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100">
+  <defs>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" seed="17" />
+      <feColorMatrix values="0 0 0 0 0.06 0 0 0 0 0.12 0 0 0 0 0.09 0 0 0 .2 0" />
+    </filter>
+    <pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.4" fill="#061e17" opacity=".16" />
+    </pattern>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8e1d3" />
+      <stop offset=".54" stop-color="#cec8bb" />
+      <stop offset="1" stop-color="#f2ebdf" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1100" fill="url(#paper)" />
+  <rect width="1600" height="1100" fill="url(#dots)" />
+  <g fill="none" stroke="#315747" stroke-width="4" opacity=".26">
+    <path d="M-120 240C170 42 350 390 650 174S1130 63 1720 340" />
+    <path d="M-120 286C170 88 350 436 650 220S1130 109 1720 386" />
+    <path d="M-120 332C170 134 350 482 650 266S1130 155 1720 432" />
+    <path d="M-120 378C170 180 350 528 650 312S1130 201 1720 478" />
+    <path d="M-120 424C170 226 350 574 650 358S1130 247 1720 524" />
+    <path d="M-120 470C170 272 350 620 650 404S1130 293 1720 570" />
+  </g>
+  <g fill="none" stroke="#061e17" stroke-width="7" opacity=".18">
+    <path d="M170 1100C260 830 480 800 560 560S870 270 995 0" />
+    <path d="M430 1100C470 870 700 770 720 520S1030 160 1150 0" />
+    <path d="M720 1100C700 850 950 720 940 490S1240 150 1350 0" />
+  </g>
+  <path d="M115 850C370 650 580 1010 850 806s470-105 680 22v272H115z" fill="#0a2a20" opacity=".18" />
+  <rect width="1600" height="1100" filter="url(#grain)" opacity=".42" />
+</svg>

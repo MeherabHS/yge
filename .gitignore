@@ -1,0 +1,31 @@
+# dependencies
+/node_modules/
+
+# Next.js build output
+/.next/
+/out/
+
+# local environment files (keep the documented template)
+.env*
+!.env.example
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# local audit tooling and browser artifacts
+/.codex/
+/Emulation.setDeviceMetricsOverride
+/Page.captureScreenshot
+/Page.navigate
+/Runtime.evaluate
+
+# design references and source copies kept outside deployed public assets
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+
+# platform/editor files
+.DS_Store
+Thumbs.db
+.vercel/
