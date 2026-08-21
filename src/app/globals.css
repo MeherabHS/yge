@@ -1440,9 +1440,47 @@ canvas {
   height: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr) auto;
+  grid-template-columns: 280px minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
+}
+.yge-brand-lockup {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  color: var(--color-paper-white);
+  text-decoration: none;
+}
+.yge-brand-plate {
+  display: inline-flex;
+  flex: 0 0 68px;
+  width: 68px;
+  height: 68px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+}
+.yge-brand-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.brand-name {
+  display: block;
+  max-width: 190px;
+  color: var(--color-paper-white);
+  font: 700 18px/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 .yge-logo {
   position: relative;
@@ -1553,13 +1591,15 @@ canvas {
   background: var(--color-forest-ink);
   transform: translateY(-120%);
   visibility: hidden;
+  pointer-events: none;
   transition:
-    transform 0.4s ease,
-    visibility 0.4s;
+    transform 0.2s ease,
+    visibility 0.2s;
 }
 .mobile-navigation.open {
   transform: translateY(0);
   visibility: visible;
+  pointer-events: auto;
 }
 .mobile-navigation > p {
   color: var(--color-acid-leaf);
@@ -1696,7 +1736,7 @@ canvas {
 
 @media (max-width: 1200px) {
   .editorial-nav nav {
-    grid-template-columns: 190px minmax(0, 1fr) auto;
+    grid-template-columns: 270px minmax(0, 1fr) auto;
     gap: 20px;
   }
   .footer-columns,
@@ -1750,11 +1790,19 @@ canvas {
   .editorial-nav nav {
     gap: 10px;
   }
-  .editorial-brand {
+  .yge-brand-lockup {
+    gap: 10px;
+  }
+  .yge-brand-plate {
+    flex-basis: 56px;
     width: 56px;
     height: 56px;
     padding: 5px;
     border-radius: 12px;
+  }
+  .brand-name {
+    max-width: 145px;
+    font-size: 15px;
   }
   .nav-join {
     display: none;
@@ -1835,6 +1883,47 @@ canvas {
     flex-direction: column;
     font-size: 14px;
     line-height: 1.45;
+  }
+}
+@media (max-width: 359px) {
+  .brand-name {
+    max-width: 115px;
+    font-size: 13px;
+  }
+}
+
+/* Route feedback is a streamed shell, never a timed transition. */
+.route-loading {
+  position: relative;
+  min-height: 60vh;
+  padding-top: 82px;
+  overflow: hidden;
+  background: var(--color-paper-white);
+}
+.route-loading-bar {
+  position: fixed;
+  z-index: 49;
+  inset: 82px auto auto 0;
+  width: 42%;
+  height: 3px;
+  background: var(--color-acid-leaf);
+  transform-origin: left;
+  animation: route-loading-progress 0.75s ease-in-out infinite alternate;
+}
+@keyframes route-loading-progress {
+  from {
+    transform: translateX(-35%) scaleX(0.55);
+  }
+  to {
+    transform: translateX(170%) scaleX(1);
+  }
+}
+@media (max-width: 620px) {
+  .route-loading {
+    padding-top: 68px;
+  }
+  .route-loading-bar {
+    top: 68px;
   }
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -104,9 +105,12 @@ export default function PrivacyPage() {
           <p>
             Where photographs of children are concerned, YGE follows a
             safeguarding and consent procedure. See our{" "}
-            <a href="/safeguarding" style={{ color: "var(--color-deep-moss)" }}>
+            <Link
+              href="/safeguarding"
+              style={{ color: "var(--color-deep-moss)" }}
+            >
               Safeguarding Policy
-            </a>{" "}
+            </Link>{" "}
             for details.
           </p>
 

@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 import { primaryCta, primaryNavigation } from "@/content/navigation";
-import { YGELogo } from "@/components/global/YGELogo";
+import { YGEBrandLockup } from "@/components/global/YGEBrandLockup";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -57,10 +58,16 @@ export default function Navbar() {
   }, [open]);
 
   const contactActive = pathname === primaryCta.href;
+  const prefetchPrimaryRoutes = () => {
+    [...primaryNavigation, primaryCta].forEach((item) => {
+      router.prefetch(item.href);
+    });
+  };
+
   return (
     <header className="editorial-nav">
       <nav aria-label="Main navigation">
-        <YGELogo className="editorial-brand" />
+        <YGEBrandLockup priority className="editorial-brand-lockup" />
         <ul className="editorial-nav-links">
           {primaryNavigation.map((item) => {
             const active =
@@ -89,7 +96,12 @@ export default function Navbar() {
         <button
           ref={toggleRef}
           className="nav-toggle"
-          onClick={() => setOpen((value) => !value)}
+          onPointerEnter={prefetchPrimaryRoutes}
+          onFocus={prefetchPrimaryRoutes}
+          onClick={() => {
+            prefetchPrimaryRoutes();
+            setOpen((value) => !value);
+          }}
           aria-expanded={open}
           aria-controls="mobile-navigation"
           aria-label={open ? "Close menu" : "Open menu"}
