@@ -132,17 +132,6 @@ export const teamMembers: TeamMember[] = [
     requiresVerification: true,
   },
   {
-    id: 'nafisa',
-    name: 'MAYEDA NAFISA',
-    role: 'Director of Events',
-    department: 'events-programs',
-    photo: null,
-    visible: true,
-    vacant: false,
-    order: 1,
-    requiresVerification: true,
-  },
-  {
     id: 'nazif',
     name: 'NAZIF AHMED',
     role: 'Director of Programs',
