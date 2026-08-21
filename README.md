@@ -1,143 +1,105 @@
-# Youth for a Green Earth (YGE) — Website Documentation
+# Youth for a Green Earth website
 
-This repository contains the complete, production-grade website for **Youth for a Green Earth (YGE)**, built with Next.js App Router, TypeScript, Tailwind CSS, and Framer Motion.
+The official Youth for a Green Earth (YGE) website is a Next.js App Router application. Content is maintained in typed TypeScript files under `src/content`; there is no CMS or application database.
 
-The site is built with **zero external CMS or database dependencies**. All content is managed directly via typed TypeScript files located in `src/content/`.
+## Requirements
 
----
+- Node.js 22 LTS (Next.js requires at least 20.9)
+- npm 10 or newer
 
-## Quick Start
+Use the version in `.nvmrc` when possible.
 
-### Development
+## Local development
+
 ```bash
+npm ci
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Build & Production
+Open `http://localhost:3000`.
+
+Copy `.env.example` to `.env.local` only when testing contact delivery. Local secrets are ignored by Git.
+
+## Quality checks
+
 ```bash
+npm run check
+```
+
+The complete check formats, lints, type-checks, tests, audits production dependencies, and creates a production build. Pull requests and pushes to `main` run the same checks in GitHub Actions.
+
+Individual commands are also available:
+
+```bash
+npm run format:check
+npm run lint
+npm run typecheck
+npm run test
+npm run audit
 npm run build
-npm run start
 ```
 
----
+## Production configuration
 
-## Content Editing Guide (No Code Knowledge Required)
+Configure these encrypted environment variables in the hosting provider:
 
-All content files are in `src/content/`. Every title, date, list item, image path, metric, and organization detail is controlled from these files.
+- `NEXT_PUBLIC_SITE_URL`: canonical HTTPS origin.
+- `BREVO_API_KEY`: Brevo transactional-email API key.
+- `BREVO_SENDER_EMAIL`: verified Brevo sender address.
+- `BREVO_SENDER_NAME`: optional sender label.
+- `BREVO_RECIPIENT_EMAIL`: optional destination override.
+- `UPSTASH_REDIS_REST_URL`: Upstash Redis REST endpoint.
+- `UPSTASH_REDIS_REST_TOKEN`: Upstash Redis REST token.
+- `YGE_SECURITY_SECRET`: at least 32 random server-only characters used to HMAC identifiers and token keys.
+- `CONTACT_ALLOWED_ORIGINS`: optional exact comma-separated HTTPS staging origins. Production apex and `www` origins are built in.
+- `CONTACT_GLOBAL_LIMIT` and `CONTACT_GLOBAL_WINDOW_SECONDS`: optional global successful-delivery ceiling; defaults to 100 per hour.
 
-### 1. How to Update Organization Information & Social Links
-File: `src/content/site.ts`
-- Edit `email`, `social` URLs, `motto`, or default metadata strings.
-- **Featured Event**: To change which event is featured site-wide, update `featuredEventSlug` to match the target event's `slug` in `events.ts`.
+On Vercel, the application uses the platform-overwritten `x-forwarded-for` value. For a self-hosted reverse proxy, set `CONTACT_TRUST_PROXY_HEADERS=true` and `CONTACT_CLIENT_IP_HEADER=x-real-ip` only after Nginx overwrites that header, logs the verified address, and direct access to the Next.js origin is blocked.
 
-### 2. How to Change the Green Genesis Date (or Any Event Date)
-File: `src/content/events.ts`
-- Find the event record (e.g. `green-genesis-2026`).
-- Modify `currentDate` (e.g. `'2026-09-10'`), `endDate`, or `rescheduleNotice`.
-- **Note**: Changing this single record updates the announcement bar, homepage event card, events listing, event detail page, and structured data automatically.
+The contact endpoint and token issuer fail closed in production when durable Redis or `YGE_SECURITY_SECRET` is not configured. They never fall back to instance-local state in production. Local development and automated tests use an isolated in-memory adapter.
 
-### 3. How to Add or Edit a Program
-File: `src/content/programs.ts`
-- Add a new object to the `programs` array matching the `Program` interface.
-- Set `slug`, `title`, `category`, `status`, `summary`, `problem`, `response`, `activities`, and `outputs`.
+The first-party contact controls are strict Origin checks, an HttpOnly `SameSite=Strict` `__Host-` CSRF cookie, a matching header token, a 30-minute single-use form token, a two-second server-side minimum completion time, an accessible off-screen trap field, atomic TTL limits, duplicate suppression, strict JSON/schema limits, and plain-text email delivery. No CAPTCHA, fingerprinting, or third-party bot-detection code is used.
 
-### 4. Editing the Team Page
+The enforced page CSP uses a fresh nonce for Next.js hydration scripts and blocks inline script attributes. Because Next.js nonce support requires request-time rendering, pages are dynamically rendered instead of being served as fully static HTML; this trades CDN-cacheable HTML and the lowest possible TTFB for the requested strict script policy. Inline style attributes remain narrowly allowed because the existing Framer Motion and presentation components generate repository-controlled style attributes; submitted values never reach them.
 
-Team departments and profiles are managed in `src/content/team.ts`; normal updates do not require editing a React component.
+This repository targets Vercel/serverless deployment, so Fail2ban is not installed or claimed as active. On a future Linux/Nginx host, verify restored client IPs and the access-log format before adding tested Fail2ban filters; application-level Redis controls remain mandatory.
 
-1. Add the photograph to `public/images/team/`. PNG, JPG, JPEG and WebP files are supported.
-2. Open `src/content/team.ts`.
-3. Add a new member object or update the existing one.
-4. Choose a `department` ID from `teamDepartments`.
-5. Set `order` to control the member's position within that department.
-6. Set `visible: true` (or `false` to hide a former member without deleting the record).
-7. Run the site and confirm the responsive image crop. Adjust `photoPosition` if the face needs a different focal point.
+Deployment itself is managed outside this repository. Before announcing a release, verify the canonical domain's DNS, TLS, environment settings, `/api/contact`, and all responsive layouts.
 
-Always provide the complete local file path in `photo`; the page does not append or assume a file extension. Use `photo: null` to show the editorial initials fallback.
+## Content maintenance
 
-```ts
-{
-  id: 'example-member',
-  name: 'EXAMPLE MEMBER',
-  role: 'Program Coordinator',
-  department: 'events-programs',
-  photo: '/images/team/example-member.jpg',
-  photoAlt: 'Example Member, Program Coordinator at Youth for a Green Earth',
-  photoPosition: 'center 25%',
-  featured: false,
-  vacant: false,
-  visible: true,
-  order: 4,
-  requiresVerification: true,
-}
-```
+Organization details, social links, calls to action, and the featured-event slug live in `src/content/site.ts`. Programs, events, stories, resources, papers, and team members have dedicated files in the same directory.
 
-### 5. How to Change Colours & Design Tokens
-File: `src/app/globals.css`
-- Core palette variables are defined under `@theme` and `:root`:
-  - `--color-forest-ink`: `#071A14`
-  - `--color-deep-moss`: `#123C2F`
-  - `--color-warm-cream`: `#F5F1E7`
-  - `--color-acid-leaf`: `#C8FF3D`
-  - `--color-electric-teal`: `#00DDB3`
-  - `--color-climate-coral`: `#FF5E56`
-  - `--color-solar-yellow`: `#FFD23F`
-  - `--color-future-violet`: `#8E6CFF`
+### Team members
 
-### 6. How to Replace Images
-File: `src/content/media.ts`
-- Centralized mapping of all image paths used throughout the site. Update file paths here when real photography is ready to be uploaded to `public/images/`.
+Team departments and profiles are maintained in `src/content/team.ts`.
 
-### 7. How to Add a Resource or PDF
-File: `src/content/resources.ts`
-- Add a new resource entry.
-- Place the PDF in `public/pdfs/` and set `pdfPath: '/pdfs/your-file.pdf'`.
-- If no PDF is provided, leave `pdfPath: undefined` — the site will automatically render a safe "PDF Coming Soon" badge without broken download buttons.
+1. Add a verified photograph under `public/images/team/` when one is available.
+2. Add or update the typed member record.
+3. Use a valid department ID and a unique order within that department.
+4. Set `visible` explicitly and verify the responsive crop.
+5. Run `npm run check` before publishing.
 
-### 8. Contact Form / Brevo Setup
+Use a complete public path for `photo`; use `null` for the editorial initials fallback. Removing personal data from the current branch does not remove it from existing Git history. History rewriting is a separate, coordinated privacy operation.
 
-Contact copy, topics, verified social links, delivery mode, and endpoint are configured in `src/content/site.ts` under `contactConfig`.
+### Images and publications
 
-The `/api/contact` route sends plain-text transactional email through Brevo. Copy `.env.example` to `.env.local` and provide:
+Shared image paths are centralized in `src/content/media.ts`. Optimize raster assets before committing them and provide accurate dimensions and alternative text. Publication files belong under `public/pdfs/`; omit their path until a verified document exists.
 
-- `BREVO_API_KEY`: a Brevo API v3 key.
-- `BREVO_SENDER_EMAIL`: an address verified as a sender in Brevo.
-- `BREVO_SENDER_NAME`: optional sender name (defaults to `YGE Website`).
-- `BREVO_RECIPIENT_EMAIL`: optional recipient override (defaults to `youthforagreenearth@gmail.com`).
+## Architecture
 
-Without the required API key and verified sender, the form returns a clear configuration error and never displays a false success message. Restart the development server after changing environment variables.
-
----
-
-## Architecture Overview
-
-```
+```text
 src/
-├── app/                  # Next.js App Router routes & pages
-│   ├── page.tsx          # Homepage
-│   ├── about/            # About page
-│   ├── work/             # Our Work archive & [slug] detail
-│   ├── impact/           # Impact metrics & locations page
-│   ├── stories/          # Stories publication archive & [slug] detail
-│   ├── events/           # Events listing & [slug] detail
-│   ├── resources/        # Resource library & [slug] detail
-│   ├── team/             # Team page
-│   ├── get-involved/     # Permanent redirect to /contact
-│   ├── contact/          # Contact page & Brevo-ready form
-│   ├── privacy/          # Draft privacy policy
-│   └── safeguarding/     # Draft safeguarding & child protection policy
-├── components/           # UI & section components
-│   ├── layout/           # Navbar, Footer, AnnouncementBar
-│   └── sections/         # Hero, Manifesto, Impact, Map, Docs, etc.
-├── content/              # Local typed content layer
-├── lib/                  # Utility functions
-├── styles/               # Global CSS & Tailwind design tokens
-└── types/                # Global TypeScript definitions
+├── app/             Routes, layouts, metadata, and API handlers
+├── components/      Reusable presentation components
+├── content/         Typed editorial content
+├── lib/             Shared application and service logic
+│   └── contact/     Contact validation, abuse controls, and delivery
+└── types/           Shared domain types
 ```
 
----
+Branded not-found and runtime-error components use Next.js error boundaries directly, preserving framework-managed HTTP status codes without a request interception layer.
 
-## License & Organization Notice
-Developed for Youth for a Green Earth (YGE), Bangladesh.
-"Transforming Awareness into Action"
+## Security
+
+See `SECURITY.md` for private vulnerability reporting. Never commit `.env` files, credentials, personal drafts, production exports, or browser-profile data.

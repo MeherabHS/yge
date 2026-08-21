@@ -1,10 +1,14 @@
-import Image from 'next/image';
-import type { TeamMember } from '@/content/team';
-import { media } from '@/content/media';
-import { imagePlaceholders } from '@/content/image-placeholders';
-import { TornPaperEdge } from '@/components/editorial/EditorialPrimitives';
+import Image from "next/image";
+import type { TeamMember } from "@/content/team";
+import { media } from "@/content/media";
+import { imagePlaceholders } from "@/content/image-placeholders";
+import { TornPaperEdge } from "@/components/editorial/EditorialPrimitives";
 
-export default function TeamHero({ featuredMembers }: { featuredMembers: TeamMember[] }) {
+export default function TeamHero({
+  featuredMembers,
+}: {
+  featuredMembers: TeamMember[];
+}) {
   return (
     <section
       className="team-hero"
@@ -31,7 +35,10 @@ export default function TeamHero({ featuredMembers }: { featuredMembers: TeamMem
           <span>behind the</span>
           <em>action.</em>
         </h1>
-        <p>A youth-led team organizing ideas, programs and communication for environmental action.</p>
+        <p>
+          A youth-led team organizing ideas, programs and communication for
+          environmental action.
+        </p>
       </div>
       <TornPaperEdge />
     </section>

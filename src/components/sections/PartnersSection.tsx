@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { partners } from '@/content/partners';
+import { partners } from "@/content/partners";
 
 // Partner names and logo use require final organizational verification.
 const REPEAT = 3;
@@ -13,16 +13,22 @@ export default function PartnersSection() {
       aria-label="Partners and collaborators"
       className="py-16 overflow-hidden border-t border-b"
       style={{
-        backgroundColor: 'var(--color-mist-green)',
-        borderColor: 'rgba(18,60,47,0.12)',
+        backgroundColor: "var(--color-mist-green)",
+        borderColor: "rgba(18,60,47,0.12)",
       }}
     >
       <div className="container-yge mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <p className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--color-muted-sage)' }}>
+          <p
+            className="font-mono text-xs uppercase tracking-widest"
+            style={{ color: "var(--color-muted-sage)" }}
+          >
             Partners &amp; Collaborators
           </p>
-          <p className="font-mono text-[10px]" style={{ color: 'var(--color-muted-sage)' }}>
+          <p
+            className="font-mono text-[10px]"
+            style={{ color: "var(--color-muted-sage)" }}
+          >
             {/* Partner names and logo use require final organizational verification. */}
             Names shown pending final organizational verification.
           </p>
@@ -40,16 +46,16 @@ export default function PartnersSection() {
               <div
                 className="px-6 py-3 rounded-full border font-display font-600 text-sm whitespace-nowrap"
                 style={{
-                  borderColor: 'rgba(18,60,47,0.2)',
-                  backgroundColor: 'var(--color-paper-white)',
-                  color: 'var(--color-deep-moss)',
+                  borderColor: "rgba(18,60,47,0.2)",
+                  backgroundColor: "var(--color-paper-white)",
+                  color: "var(--color-deep-moss)",
                 }}
               >
                 {partner.shortName ?? partner.name}
               </div>
               <span
                 className="font-mono text-[9px] uppercase tracking-wider"
-                style={{ color: 'var(--color-muted-sage)' }}
+                style={{ color: "var(--color-muted-sage)" }}
               >
                 {partner.relationship}
               </span>
@@ -65,16 +71,16 @@ export default function PartnersSection() {
               <div
                 className="px-6 py-3 rounded-full border font-display font-600 text-sm whitespace-nowrap"
                 style={{
-                  borderColor: 'rgba(18,60,47,0.2)',
-                  backgroundColor: 'var(--color-paper-white)',
-                  color: 'var(--color-deep-moss)',
+                  borderColor: "rgba(18,60,47,0.2)",
+                  backgroundColor: "var(--color-paper-white)",
+                  color: "var(--color-deep-moss)",
                 }}
               >
                 {partner.shortName ?? partner.name}
               </div>
               <span
                 className="font-mono text-[9px] uppercase tracking-wider"
-                style={{ color: 'var(--color-muted-sage)' }}
+                style={{ color: "var(--color-muted-sage)" }}
               >
                 {partner.relationship}
               </span>

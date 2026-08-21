@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { imagePlaceholders } from '@/content/image-placeholders';
+import Image from "next/image";
+import { useState } from "react";
+import { imagePlaceholders } from "@/content/image-placeholders";
 
 interface EventGalleryImageProps {
   src: string;
@@ -18,33 +18,38 @@ export default function EventGalleryImage({
   src,
   alt,
   placeholder = false,
-  objectPosition = 'center',
+  objectPosition = "center",
   sizes,
   priority = false,
-  className = '',
+  className = "",
 }: EventGalleryImageProps) {
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => setFailed(false), [src]);
+  const [failedSource, setFailedSource] = useState<string | null>(null);
+  const failed = failedSource === src;
 
   return (
-    <div className={`event-gallery-image ${placeholder ? 'is-placeholder' : ''} ${className}`}>
+    <div
+      className={`event-gallery-image ${placeholder ? "is-placeholder" : ""} ${className}`}
+    >
       {!failed ? (
         <Image
           src={src}
           alt={alt}
           fill
           priority={priority}
-          placeholder={placeholder ? 'blur' : 'empty'}
-          blurDataURL={placeholder ? imagePlaceholders.eventPortrait : undefined}
+          placeholder={placeholder ? "blur" : "empty"}
+          blurDataURL={
+            placeholder ? imagePlaceholders.eventPortrait : undefined
+          }
           sizes={sizes}
-          onError={() => setFailed(true)}
-          style={{ objectFit: 'cover', objectPosition }}
+          onError={() => setFailedSource(src)}
+          style={{ objectFit: "cover", objectPosition }}
         />
       ) : (
         <div className="event-image-fallback" role="img" aria-label={alt} />
       )}
-      {(placeholder || failed) && <span className="event-placeholder-label">Photo placeholder</span>}
+      {(placeholder || failed) && (
+        <span className="event-placeholder-label">Photo placeholder</span>
+      )}
     </div>
   );
 }

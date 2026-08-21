@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { X, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
-import { getFeaturedEvent } from '@/content/events';
+import Link from "next/link";
+import { X, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { getFeaturedEvent } from "@/content/events";
 
 export default function AnnouncementBar() {
   const [dismissed, setDismissed] = useState(false);
@@ -16,8 +16,8 @@ export default function AnnouncementBar() {
       role="banner"
       aria-label="Site announcement"
       style={{
-        backgroundColor: 'var(--color-climate-coral)',
-        color: 'var(--color-paper-white)',
+        backgroundColor: "var(--color-climate-coral)",
+        color: "var(--color-paper-white)",
       }}
       className="relative z-50 py-2 px-4 text-center"
     >

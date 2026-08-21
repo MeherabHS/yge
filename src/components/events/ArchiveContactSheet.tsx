@@ -1,8 +1,14 @@
-import type { EventArchiveFrame } from '@/content/event-gallery';
-import EventGalleryImage from './EventGalleryImage';
+import type { EventArchiveFrame } from "@/content/event-gallery";
+import EventGalleryImage from "./EventGalleryImage";
 
-export default function ArchiveContactSheet({ frames }: { frames: EventArchiveFrame[] }) {
-  const visibleFrames = frames.filter((frame) => frame.visible !== false).sort((a, b) => a.order - b.order);
+export default function ArchiveContactSheet({
+  frames,
+}: {
+  frames: EventArchiveFrame[];
+}) {
+  const visibleFrames = frames
+    .filter((frame) => frame.visible !== false)
+    .sort((a, b) => a.order - b.order);
 
   return (
     <section className="events-archive" aria-labelledby="events-archive-title">

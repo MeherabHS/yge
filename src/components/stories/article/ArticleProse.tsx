@@ -1,7 +1,11 @@
-import Image from 'next/image';
-import type { StoryBlock } from '@/types';
+import Image from "next/image";
+import type { StoryBlock } from "@/types";
 
-function ArticleFigure({ block }: { block: Extract<StoryBlock, { type: 'image' }> }) {
+function ArticleFigure({
+  block,
+}: {
+  block: Extract<StoryBlock, { type: "image" }>;
+}) {
   return (
     <figure className="article-figure">
       <div className="article-figure-media">
@@ -20,26 +24,28 @@ function ArticleFigure({ block }: { block: Extract<StoryBlock, { type: 'image' }
 
 function ArticleBlock({ block }: { block: StoryBlock }) {
   switch (block.type) {
-    case 'paragraph':
+    case "paragraph":
       return <p>{block.text}</p>;
-    case 'heading': {
-      const Heading = `h${block.level}` as 'h2' | 'h3';
+    case "heading": {
+      const Heading = `h${block.level}` as "h2" | "h3";
       return <Heading>{block.text}</Heading>;
     }
-    case 'quote':
+    case "quote":
       return (
         <blockquote className="article-inline-quote">
           <p>&ldquo;{block.text}&rdquo;</p>
           {block.attribution && <cite>— {block.attribution}</cite>}
         </blockquote>
       );
-    case 'list':
+    case "list":
       return (
         <ul>
-          {block.items.map((item) => <li key={item}>{item}</li>)}
+          {block.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
         </ul>
       );
-    case 'image':
+    case "image":
       return <ArticleFigure block={block} />;
     default:
       return null;
@@ -49,7 +55,9 @@ function ArticleBlock({ block }: { block: StoryBlock }) {
 export default function ArticleProse({ blocks }: { blocks: StoryBlock[] }) {
   return (
     <div className="article-prose">
-      {blocks.map((block, index) => <ArticleBlock block={block} key={`${block.type}-${index}`} />)}
+      {blocks.map((block, index) => (
+        <ArticleBlock block={block} key={`${block.type}-${index}`} />
+      ))}
     </div>
   );
 }

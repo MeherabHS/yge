@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { motion, useReducedMotion } from 'framer-motion';
-import ContactEnvelope from './ContactEnvelope';
+import { motion, useReducedMotion } from "framer-motion";
+import ContactEnvelope from "./ContactEnvelope";
 
 export default function ContactHero() {
   const reduceMotion = useReducedMotion();
@@ -27,17 +27,22 @@ export default function ContactHero() {
         >
           <p className="contact-eyebrow">Contact YGE</p>
           <h1 id="contact-title">
-            Start with<br />
-            A <em>message.</em>
+            Start with
+            <br />A <em>message.</em>
           </h1>
           <i aria-hidden="true" />
           <p className="contact-hero-support">
-            Have an idea, question or reason<br className="contact-desktop-break" /> to collaborate? Send it our way.
+            Have an idea, question or reason
+            <br className="contact-desktop-break" /> to collaborate? Send it our
+            way.
           </p>
         </motion.div>
         <ContactEnvelope />
       </div>
-      <div className="contact-torn-edge contact-torn-paper" aria-hidden="true" />
+      <div
+        className="contact-torn-edge contact-torn-paper"
+        aria-hidden="true"
+      />
     </section>
   );
 }

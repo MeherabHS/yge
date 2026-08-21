@@ -5,17 +5,24 @@ type Props = {
   onChange: (topic: string) => void;
 };
 
-export default function ContactTopicSelector({ topics, value, error, onChange }: Props) {
+export default function ContactTopicSelector({
+  topics,
+  value,
+  error,
+  onChange,
+}: Props) {
   return (
     <fieldset
       className="contact-topic-fieldset"
-      aria-describedby={error ? 'topic-error' : undefined}
+      aria-describedby={error ? "topic-error" : undefined}
       aria-invalid={Boolean(error)}
     >
-      <legend>I&apos;m contacting about <span aria-hidden="true">*</span></legend>
+      <legend>
+        I&apos;m contacting about <span aria-hidden="true">*</span>
+      </legend>
       <div className="contact-topic-grid">
         {topics.map((topic) => {
-          const id = `topic-${topic.toLowerCase().replace(/\s+/g, '-')}`;
+          const id = `topic-${topic.toLowerCase().replace(/\s+/g, "-")}`;
           return (
             <label key={topic} htmlFor={id} className="contact-topic-chip">
               <input
@@ -32,7 +39,11 @@ export default function ContactTopicSelector({ topics, value, error, onChange }:
           );
         })}
       </div>
-      {error && <p id="topic-error" className="contact-field-error">{error}</p>}
+      {error && (
+        <p id="topic-error" className="contact-field-error">
+          {error}
+        </p>
+      )}
     </fieldset>
   );
 }

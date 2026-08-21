@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
-import { imagePlaceholders } from '@/content/image-placeholders';
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import { imagePlaceholders } from "@/content/image-placeholders";
 
 export default function ContactEnvelope() {
   const reduceMotion = useReducedMotion();

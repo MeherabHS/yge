@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { media } from '@/content/media';
+import Image from "next/image";
+import Link from "next/link";
+import { media } from "@/content/media";
 
 interface YGELogoProps {
   priority?: boolean;
@@ -11,9 +11,9 @@ interface YGELogoProps {
 
 export function YGELogo({
   priority = false,
-  className = '',
-  imageClassName = '',
-  sizes = '(min-width: 1100px) 56px, 46px',
+  className = "",
+  imageClassName = "",
+  sizes = "(min-width: 1100px) 56px, 46px",
 }: YGELogoProps) {
   return (
     <Link

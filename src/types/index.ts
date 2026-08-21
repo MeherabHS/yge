@@ -3,70 +3,58 @@
 // ============================================================
 
 export type ColorWorld =
-  | 'forest'
-  | 'teal'
-  | 'coral'
-  | 'violet'
-  | 'cream'
-  | 'acid';
+  "forest" | "teal" | "coral" | "violet" | "cream" | "acid";
 
 export type ProgramCategory =
-  | 'Education'
-  | 'Advocacy'
-  | 'Community'
-  | 'Campus'
-  | 'Publications'
-  | 'Creative Media'
-  | 'Events';
+  | "Education"
+  | "Advocacy"
+  | "Community"
+  | "Campus"
+  | "Publications"
+  | "Creative Media"
+  | "Events";
 
-export type ProgramStatus = 'Active' | 'Completed' | 'Upcoming' | 'Ongoing';
+export type ProgramStatus = "Active" | "Completed" | "Upcoming" | "Ongoing";
 
 export type EventStatus =
-  | 'upcoming'
-  | 'ongoing'
-  | 'past'
-  | 'rescheduled'
-  | 'cancelled';
+  "upcoming" | "ongoing" | "past" | "rescheduled" | "cancelled";
 
 export type RegistrationStatus =
-  | 'open'
-  | 'closed'
-  | 'coming-soon'
-  | 'not-required';
+  "open" | "closed" | "coming-soon" | "not-required";
 
 export type StoryType =
-  | 'Impact Story'
-  | 'Field Note'
-  | 'Campaign'
-  | 'Interview'
-  | 'Announcement'
-  | 'Event Recap';
+  | "Impact Story"
+  | "Field Note"
+  | "Campaign"
+  | "Interview"
+  | "Announcement"
+  | "Event Recap";
 
 export type ResourceType =
-  | 'Eco Paper'
-  | 'Report'
-  | 'Toolkit'
-  | 'Educational Material'
-  | 'Documentary'
-  | 'Campaign Material';
+  | "Eco Paper"
+  | "Report"
+  | "Toolkit"
+  | "Educational Material"
+  | "Documentary"
+  | "Campaign Material";
 
 export type TeamRole =
-  | 'Founding Advisor'
-  | 'Advisor'
-  | 'Founder'
-  | 'Executive'
-  | 'Volunteer'
-  | 'Contributor';
+  | "Founding Advisor"
+  | "Advisor"
+  | "Founder"
+  | "Executive"
+  | "Volunteer"
+  | "Contributor";
 
 export type PartnerRelationship =
-  | 'Organizer'
-  | 'Collaborator'
-  | 'Supporter'
-  | 'Sponsor'
-  | 'Media Partner'
-  | 'Technology Partner'
-  | 'Venue'
-  | 'Speaker Organization';
+  | "Organizer"
+  | "Collaborator"
+  | "Supporter"
+  | "Sponsor"
+  | "Media Partner"
+  | "Technology Partner"
+  | "Venue"
+  | "Speaker Organization";
 
 // ─── Program ────────────────────────────────────────────────
 
@@ -116,7 +104,7 @@ export interface YGEEvent {
   status: EventStatus;
   originalDate?: string; // ISO date
   startDate?: string;
-  currentDate: string;   // ISO date — the one shown everywhere
+  currentDate: string; // ISO date — the one shown everywhere
   endDate?: string;
   rescheduleNotice?: string;
   venue: string;
@@ -157,11 +145,11 @@ export interface Story {
 }
 
 export type StoryBlock =
-  | { type: 'paragraph'; text: string }
-  | { type: 'heading'; level: 2 | 3; text: string }
-  | { type: 'image'; src: string; alt: string; caption?: string }
-  | { type: 'quote'; text: string; attribution?: string }
-  | { type: 'list'; items: string[] };
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; level: 2 | 3; text: string }
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "quote"; text: string; attribution?: string }
+  | { type: "list"; items: string[] };
 
 // ─── Resource ────────────────────────────────────────────────
 
@@ -250,7 +238,7 @@ export interface ImpactMetric {
   value: number;
   unit?: string;
   description: string;
-  source: 'verified' | 'demo' | 'awaiting-confirmation';
+  source: "verified" | "demo" | "awaiting-confirmation";
   programSlug?: string;
 }
 
@@ -278,7 +266,7 @@ export interface FooterColumn {
 
 // ─── Site Config ─────────────────────────────────────────────
 
-export type FormMode = 'demo' | 'mailto' | 'api';
+export type FormMode = "demo" | "mailto" | "api";
 
 export interface SocialLinks {
   facebook?: string;

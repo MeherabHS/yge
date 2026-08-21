@@ -1,10 +1,15 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import type { Story } from '@/types';
-import { formatDate, readingTimeLabel } from '@/lib/utils';
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import type { Story } from "@/types";
+import { formatDate, readingTimeLabel } from "@/lib/utils";
 
-const spanPattern = ['stories-archive-span-7', 'stories-archive-span-5', 'stories-archive-span-4', 'stories-archive-span-8'];
+const spanPattern = [
+  "stories-archive-span-7",
+  "stories-archive-span-5",
+  "stories-archive-span-4",
+  "stories-archive-span-8",
+];
 
 export default function StoryArchiveGrid({ stories }: { stories: Story[] }) {
   if (stories.length === 0) return null;
@@ -17,7 +22,10 @@ export default function StoryArchiveGrid({ stories }: { stories: Story[] }) {
           key={story.slug}
           aria-labelledby={`archive-story-${story.slug}`}
         >
-          <Link href={`/stories/${story.slug}`} className="stories-archive-link">
+          <Link
+            href={`/stories/${story.slug}`}
+            className="stories-archive-link"
+          >
             <div className="stories-archive-image">
               <Image
                 src={story.heroImage}
@@ -37,7 +45,8 @@ export default function StoryArchiveGrid({ stories }: { stories: Story[] }) {
               <h2 id={`archive-story-${story.slug}`}>{story.title}</h2>
               <p>{story.excerpt}</p>
               <span className="stories-archive-cta">
-                Read Story <ArrowRight size={17} strokeWidth={1.8} aria-hidden="true" />
+                Read Story{" "}
+                <ArrowRight size={17} strokeWidth={1.8} aria-hidden="true" />
               </span>
             </div>
           </Link>

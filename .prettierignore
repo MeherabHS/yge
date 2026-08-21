@@ -1,0 +1,10 @@
+.codex/
+.next/
+node_modules/
+out/
+public/
+*.tsbuildinfo
+*.png
+*.jpg
+*.jpeg
+*.webp

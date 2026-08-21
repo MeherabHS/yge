@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
-import type { Story } from '@/types';
-import { formatDate, readingTimeLabel } from '@/lib/utils';
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import type { Story } from "@/types";
+import { formatDate, readingTimeLabel } from "@/lib/utils";
 
 export default function ArticleMetadataRail({ story }: { story: Story }) {
   return (
@@ -9,12 +9,16 @@ export default function ArticleMetadataRail({ story }: { story: Story }) {
       <Link href="/stories" className="article-back-link">
         <ArrowLeft size={16} strokeWidth={1.8} aria-hidden="true" /> All Stories
       </Link>
-      {story.type && <span className="article-rail-category">{story.type}</span>}
+      {story.type && (
+        <span className="article-rail-category">{story.type}</span>
+      )}
       <dl>
         {story.date && (
           <div>
             <dt>Published</dt>
-            <dd><time dateTime={story.date}>{formatDate(story.date)}</time></dd>
+            <dd>
+              <time dateTime={story.date}>{formatDate(story.date)}</time>
+            </dd>
           </div>
         )}
         {story.readingTime && (

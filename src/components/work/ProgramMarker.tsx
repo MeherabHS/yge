@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import type { Program } from '@/types';
+import Image from "next/image";
+import type { Program } from "@/types";
 
 type ProgramMarkerProps = {
   program: Program;
@@ -7,7 +7,7 @@ type ProgramMarkerProps = {
 };
 
 export default function ProgramMarker({ program, index }: ProgramMarkerProps) {
-  const categoryClass = program.category.toLowerCase().replace(/\s+/g, '-');
+  const categoryClass = program.category.toLowerCase().replace(/\s+/g, "-");
 
   if (!program.markerImage) {
     return (
@@ -16,7 +16,11 @@ export default function ProgramMarker({ program, index }: ProgramMarkerProps) {
         role="img"
         aria-label={program.markerAlt}
       >
-        <strong>{typeof index === 'number' ? String(index + 1).padStart(2, '0') : '--'}</strong>
+        <strong>
+          {typeof index === "number"
+            ? String(index + 1).padStart(2, "0")
+            : "--"}
+        </strong>
         <small>Program</small>
       </span>
     );
@@ -30,7 +34,7 @@ export default function ProgramMarker({ program, index }: ProgramMarkerProps) {
         fill
         sizes="(max-width: 560px) 56px, (max-width: 1024px) 64px, 72px"
         className="program-marker-image"
-        style={{ objectPosition: program.markerPosition ?? 'center' }}
+        style={{ objectPosition: program.markerPosition ?? "center" }}
       />
     </span>
   );

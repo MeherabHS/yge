@@ -1,13 +1,19 @@
-import Image from 'next/image';
-import type { Story } from '@/types';
+import Image from "next/image";
+import type { Story } from "@/types";
 
 export default function ArticleGallery({ story }: { story: Story }) {
   if (!story.gallery?.length) return null;
 
   return (
-    <section className="article-gallery" aria-label={`Image gallery for ${story.title}`}>
+    <section
+      className="article-gallery"
+      aria-label={`Image gallery for ${story.title}`}
+    >
       {story.gallery.map((src, index) => (
-        <figure key={src} className={index === 0 ? 'article-gallery-wide' : undefined}>
+        <figure
+          key={src}
+          className={index === 0 ? "article-gallery-wide" : undefined}
+        >
           <div className="article-gallery-media">
             <Image
               src={src}

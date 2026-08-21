@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { MapPin, Navigation } from 'lucide-react';
-import { impactLocations } from '@/content/impact';
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { MapPin, Navigation } from "lucide-react";
+import { impactLocations } from "@/content/impact";
 
 export default function BangladeshMap() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section
       ref={ref}
       aria-label="Bangladesh activity map"
       className="section-pad"
-      style={{ backgroundColor: 'var(--color-charcoal)' }}
+      style={{ backgroundColor: "var(--color-charcoal)" }}
     >
       <div className="container-yge">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -29,17 +29,20 @@ export default function BangladeshMap() {
               <Navigation size={13} /> Geographic Presence
             </div>
 
-            <h2
-              className="font-display font-800 text-display leading-tight tracking-tight text-[var(--color-paper-white)]"
-            >
-              Across{' '}
-              <em className="font-serif italic" style={{ color: 'var(--color-electric-teal)' }}>
+            <h2 className="font-display font-800 text-display leading-tight tracking-tight text-[var(--color-paper-white)]">
+              Across{" "}
+              <em
+                className="font-serif italic"
+                style={{ color: "var(--color-electric-teal)" }}
+              >
                 Bangladesh
               </em>
             </h2>
 
             <p className="text-body-lg leading-relaxed text-[var(--color-muted-sage)] font-body">
-              From Dhaka&apos;s urban communities to the tea hills of Sreemangal and the ecosystems of Khagrachari — YGE takes environmental action where it matters most.
+              From Dhaka&apos;s urban communities to the tea hills of Sreemangal
+              and the ecosystems of Khagrachari — YGE takes environmental action
+              where it matters most.
             </p>
 
             {/* Location Cards */}
@@ -54,7 +57,7 @@ export default function BangladeshMap() {
                 >
                   <div
                     className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0 animate-pulse"
-                    style={{ backgroundColor: 'var(--color-electric-teal)' }}
+                    style={{ backgroundColor: "var(--color-electric-teal)" }}
                     aria-hidden="true"
                   />
                   <div>
@@ -92,42 +95,71 @@ export default function BangladeshMap() {
                 <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-electric-teal)] font-bold">
                   YGE Activity Locations
                 </span>
-                <span className="font-mono text-[10px] text-[var(--color-muted-sage)]">3 Regions Verified</span>
+                <span className="font-mono text-[10px] text-[var(--color-muted-sage)]">
+                  3 Regions Verified
+                </span>
               </div>
 
               {/* High Contrast Regional Pins */}
               <div className="space-y-4">
                 <div className="p-5 rounded-2xl border border-[var(--color-electric-teal)]/30 bg-[var(--color-electric-teal)]/10 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <MapPin size={20} className="text-[var(--color-electric-teal)]" />
+                    <MapPin
+                      size={20}
+                      className="text-[var(--color-electric-teal)]"
+                    />
                     <div>
-                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">Dhaka Central</h3>
-                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">Primary School Art Education &amp; Campus Competitions</p>
+                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">
+                        Dhaka Central
+                      </h3>
+                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">
+                        Primary School Art Education &amp; Campus Competitions
+                      </p>
                     </div>
                   </div>
-                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">Active</span>
+                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">
+                    Active
+                  </span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <MapPin size={20} className="text-[var(--color-acid-leaf)]" />
+                    <MapPin
+                      size={20}
+                      className="text-[var(--color-acid-leaf)]"
+                    />
                     <div>
-                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">Sreemangal</h3>
-                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">Tea Estate Ecosystem Restoration &amp; Field Notes</p>
+                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">
+                        Sreemangal
+                      </h3>
+                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">
+                        Tea Estate Ecosystem Restoration &amp; Field Notes
+                      </p>
                     </div>
                   </div>
-                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">Active</span>
+                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">
+                    Active
+                  </span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <MapPin size={20} className="text-[var(--color-solar-yellow)]" />
+                    <MapPin
+                      size={20}
+                      className="text-[var(--color-solar-yellow)]"
+                    />
                     <div>
-                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">Khagrachari</h3>
-                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">Hill Tracts Youth Environmental Advocacy</p>
+                      <h3 className="font-display font-800 text-lg text-[var(--color-paper-white)]">
+                        Khagrachari
+                      </h3>
+                      <p className="font-mono text-xs text-[var(--color-muted-sage)]">
+                        Hill Tracts Youth Environmental Advocacy
+                      </p>
                     </div>
                   </div>
-                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">Active</span>
+                  <span className="font-mono text-xs uppercase font-bold text-[var(--color-acid-leaf)]">
+                    Active
+                  </span>
                 </div>
               </div>
             </div>
