@@ -1892,41 +1892,6 @@ canvas {
   }
 }
 
-/* Route feedback is a streamed shell, never a timed transition. */
-.route-loading {
-  position: relative;
-  min-height: 60vh;
-  padding-top: 82px;
-  overflow: hidden;
-  background: var(--color-paper-white);
-}
-.route-loading-bar {
-  position: fixed;
-  z-index: 49;
-  inset: 82px auto auto 0;
-  width: 42%;
-  height: 3px;
-  background: var(--color-acid-leaf);
-  transform-origin: left;
-  animation: route-loading-progress 0.75s ease-in-out infinite alternate;
-}
-@keyframes route-loading-progress {
-  from {
-    transform: translateX(-35%) scaleX(0.55);
-  }
-  to {
-    transform: translateX(170%) scaleX(1);
-  }
-}
-@media (max-width: 620px) {
-  .route-loading {
-    padding-top: 68px;
-  }
-  .route-loading-bar {
-    top: 68px;
-  }
-}
-
 @media (min-width: 621px) and (max-width: 767px) {
   .editorial-footer {
     padding: 32px 24px 24px;
@@ -6170,10 +6135,6 @@ body:has(.about-reference-page) {
 }
 .work-closing .about-campaign-stamp {
   width: 104px;
-}
-.work-page-loading {
-  min-height: 100vh;
-  background: var(--color-forest-ink);
 }
 .work-archive-fallback {
   min-height: 420px;
