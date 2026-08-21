@@ -14,6 +14,7 @@ export function YGEBrandLockup({
   return (
     <Link
       href="/"
+      prefetch={true}
       aria-label="Youth for a Green Earth — Home"
       className={`yge-brand-lockup ${className}`.trim()}
     >

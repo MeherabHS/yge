@@ -77,6 +77,7 @@ export default function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  prefetch={true}
                   aria-current={active ? "page" : undefined}
                   className={active ? "active" : ""}
                 >
@@ -88,6 +89,7 @@ export default function Navbar() {
         </ul>
         <Link
           href={primaryCta.href}
+          prefetch={true}
           aria-current={contactActive ? "page" : undefined}
           className={`nav-join${contactActive ? " active" : ""}`}
         >
@@ -126,6 +128,7 @@ export default function Navbar() {
                 <span>0{index + 1}</span>
                 <Link
                   href={item.href}
+                  prefetch={true}
                   aria-current={active ? "page" : undefined}
                   onClick={() => setOpen(false)}
                 >
@@ -137,6 +140,7 @@ export default function Navbar() {
         </ul>
         <Link
           href={primaryCta.href}
+          prefetch={true}
           aria-current={contactActive ? "page" : undefined}
           onClick={() => setOpen(false)}
           className="lime-button mobile-contact-cta"
