@@ -8,29 +8,36 @@ function isImageTarget(target: EventTarget | null): boolean {
 
 export function BrowserDeterrents() {
   useEffect(() => {
-    const preventImageAction = (event: MouseEvent | DragEvent) => {
+    if (process.env.NODE_ENV !== 'production') return;
+
+    const preventContextMenu = (event: MouseEvent) => event.preventDefault();
+
+    const preventImageDrag = (event: DragEvent) => {
       if (isImageTarget(event.target)) event.preventDefault();
     };
 
     const preventInspectorShortcut = (event: KeyboardEvent) => {
       const key = event.key.toLowerCase();
-      const modifier = event.ctrlKey || event.metaKey;
-      const inspectShortcut = modifier && event.shiftKey && ['c', 'i', 'j'].includes(key);
-      const viewSourceShortcut = modifier && key === 'u';
+      const ctrlOrCommand = event.ctrlKey || event.metaKey;
+      const inspectShortcut =
+        (ctrlOrCommand && event.shiftKey && ['c', 'i', 'j', 'k'].includes(key)) ||
+        (event.metaKey && event.altKey && ['c', 'i', 'j'].includes(key));
+      const viewSourceShortcut = ctrlOrCommand && key === 'u';
 
       if (event.key === 'F12' || inspectShortcut || viewSourceShortcut) {
         event.preventDefault();
+        event.stopPropagation();
       }
     };
 
-    document.addEventListener('contextmenu', preventImageAction);
-    document.addEventListener('dragstart', preventImageAction);
-    document.addEventListener('keydown', preventInspectorShortcut);
+    document.addEventListener('contextmenu', preventContextMenu, true);
+    document.addEventListener('dragstart', preventImageDrag, true);
+    document.addEventListener('keydown', preventInspectorShortcut, true);
 
     return () => {
-      document.removeEventListener('contextmenu', preventImageAction);
-      document.removeEventListener('dragstart', preventImageAction);
-      document.removeEventListener('keydown', preventInspectorShortcut);
+      document.removeEventListener('contextmenu', preventContextMenu, true);
+      document.removeEventListener('dragstart', preventImageDrag, true);
+      document.removeEventListener('keydown', preventInspectorShortcut, true);
     };
   }, []);
 

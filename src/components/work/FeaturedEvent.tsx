@@ -7,6 +7,7 @@ import { ArrowRight, CalendarDays, MapPin } from 'lucide-react';
 import type { YGEEvent } from '@/types';
 import { formatEventDate } from '@/content/events';
 import { HalftonePattern, PaperTexture, TapeStrip } from '@/components/editorial/EditorialPrimitives';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 const posterAlt = 'Green Genesis 2026 event poster illustrating a journey from childhood climate learning to university-level environmental leadership.';
 
@@ -21,7 +22,7 @@ export default function FeaturedEvent({ event }: { event: YGEEvent }) {
           <motion.div className="featured-poster-frame" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }}>
             <PaperTexture /><TapeStrip />
             <div className="featured-poster-image">
-              <Image src={image} alt={posterAlt} width={1003} height={1568} sizes="(max-width: 780px) 92vw, (max-width: 1200px) 44vw, 620px" priority style={{ objectFit: 'contain' }} />
+              <Image src={image} alt={posterAlt} width={1003} height={1568} sizes="(max-width: 780px) 92vw, (max-width: 1200px) 44vw, 620px" priority placeholder="blur" blurDataURL={imagePlaceholders.greenGenesis} style={{ objectFit: 'contain' }} />
             </div>
           </motion.div>
           <motion.article className="featured-event-copy" initial={{ opacity: 0, x: 22 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .25 }}>

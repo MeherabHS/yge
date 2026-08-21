@@ -131,10 +131,6 @@
   filter: saturate(0.94) contrast(1.02);
 }
 
-.stories-masthead-image-mobile {
-  display: none;
-}
-
 .stories-masthead-art::after {
   position: absolute;
   inset: 0;
@@ -609,13 +605,7 @@ body:has(.stories-index-page) .footer-columns a[href='/stories'] {
     border-left: 0;
   }
 
-  .stories-masthead-image:not(.stories-masthead-image-mobile) {
-    display: none;
-  }
-
-  .stories-masthead-image-mobile {
-    display: block;
-    object-fit: cover;
+  .stories-masthead-image {
     object-position: center;
   }
 

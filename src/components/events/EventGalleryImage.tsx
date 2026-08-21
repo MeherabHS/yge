@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 interface EventGalleryImageProps {
   src: string;
@@ -34,6 +35,8 @@ export default function EventGalleryImage({
           alt={alt}
           fill
           priority={priority}
+          placeholder={placeholder ? 'blur' : 'empty'}
+          blurDataURL={placeholder ? imagePlaceholders.eventPortrait : undefined}
           sizes={sizes}
           onError={() => setFailed(true)}
           style={{ objectFit: 'cover', objectPosition }}

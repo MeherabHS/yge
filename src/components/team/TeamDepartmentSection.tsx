@@ -28,9 +28,9 @@ export default function TeamDepartmentSection({ department, members }: TeamDepar
           {department.description && <div>{department.description}</div>}
         </header>
         <div className={isLeadership ? 'leadership-grid' : 'team-members-grid'}>
-          {members.map((member) =>
+          {members.map((member, index) =>
             isLeadership ? (
-              <LeadershipCard key={member.id} member={member} />
+              <LeadershipCard key={member.id} member={member} priority={index === 0} />
             ) : (
               <TeamMemberCard key={member.id} member={member} />
             ),

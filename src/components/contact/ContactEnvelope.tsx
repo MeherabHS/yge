@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 export default function ContactEnvelope() {
   const reduceMotion = useReducedMotion();
@@ -19,6 +20,8 @@ export default function ContactEnvelope() {
         alt=""
         fill
         priority
+        placeholder="blur"
+        blurDataURL={imagePlaceholders.contactEnvelope}
         sizes="(min-width: 1024px) 54vw, 100vw"
         className="object-contain"
       />

@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <header className="editorial-nav">
       <nav aria-label="Main navigation">
-        <YGELogo priority className="editorial-brand" />
+        <YGELogo className="editorial-brand" />
         <ul className="editorial-nav-links">
           {primaryNavigation.map((item) => {
             const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));

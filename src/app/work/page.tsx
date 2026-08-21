@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Our Work — Youth for a Green Earth',
     description: 'A searchable archive of YGE youth climate programs and the featured Green Genesis 2026 event.',
     url: '/work',
-    images: [{ url: '/images/events/xyz.png', alt: 'Green Genesis 2026 event poster' }],
+    images: [{ url: '/images/events/xyz.webp', alt: 'Green Genesis 2026 event poster' }],
   },
 };
 

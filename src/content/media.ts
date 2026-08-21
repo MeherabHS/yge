@@ -14,7 +14,7 @@ export const media = {
 
   // ── Hero ────────────────────────────────────────────────
   heroCollage: '/images/hero/hero-collage.jpg',
-  heroDeltaCollage: '/images/hero/delta-collage.png',
+  heroDeltaCollage: '/images/hero/delta-collage.webp',
   aboutDeltaCollage: '/images/hero/about-delta-collage.webp',
   aboutDeltaCropped: '/images/hero/about-delta-cropped.webp',
   heroRiverMotif: '/images/hero/river-motif.svg',
@@ -43,7 +43,7 @@ export const media = {
 
   // ── Events ───────────────────────────────────────────────
   events: {
-    greenGenesis2026: '/images/events/xyz.png',
+    greenGenesis2026: '/images/events/xyz.webp',
     climateStrike2024: '/images/events/climate-strike-2024.jpg',
     littleGreenArtists: '/images/events/little-green-artists.jpg',
     plasticAwareness: '/images/events/plastic-awareness.jpg',
@@ -51,7 +51,7 @@ export const media = {
     placeholders: {
       wide: '/images/events/placeholders/event-placeholder-wide.webp',
       landscape: '/images/events/placeholders/event-placeholder-landscape.jpg',
-      portrait: '/images/events/placeholders/event-placeholder-portrait.png',
+      portrait: '/images/events/placeholders/event-placeholder-portrait.webp',
       square: '/images/events/placeholders/event-placeholder-square.jpeg',
       small: '/images/events/placeholders/event-placeholder-small.webp',
     },

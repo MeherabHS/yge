@@ -16,6 +16,7 @@ import { ecoPapers } from '@/content/eco-papers';
 import { getFeaturedStory } from '@/content/stories';
 import { siteConfig } from '@/content/site';
 import { media } from '@/content/media';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 const manifesto = 'EDUCATE  ·  ORGANIZE  ·  CREATE  ·  ADVOCATE  ·  ACT  ·  LEARN  ·  COLLABORATE  ·  RESTORE  ·  ';
 
@@ -106,7 +107,7 @@ export default function HomeEditorial() {
   return (
     <div className="home-editorial">
       <section className="editorial-hero" aria-labelledby="home-title">
-        <Image src={media.heroDeltaCollage} alt="Aerial collage of the Bangladesh river delta and a traditional river boat" fill priority className="hero-collage" sizes="100vw" />
+        <Image src={media.heroDeltaCollage} alt="Aerial collage of the Bangladesh river delta and a traditional river boat" fill priority placeholder="blur" blurDataURL={imagePlaceholders.heroDeltaCollage} className="hero-collage" sizes="100vw" />
         <div className="hero-shade" aria-hidden="true" />
         <RiverContours />
         <div className="hero-copy">

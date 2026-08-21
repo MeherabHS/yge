@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { PaperTexture, RiverContour, TornPaperEdge } from '@/components/editorial/EditorialPrimitives';
 import { media } from '@/content/media';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 export default function WorkHero() {
   return (
@@ -25,7 +26,7 @@ export default function WorkHero() {
         <motion.div className="work-hero-artwork" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .8 }}>
           <div className="work-hero-collage">
             <div className="work-hero-image">
-              <Image src={media.workHeroPlaceholder} alt="Editorial collage of Bangladesh delta waterways, campus architecture, botanical drawings and a traditional riverboat." fill priority sizes="(max-width: 767px) 100vw, 55vw" />
+              <Image src={media.workHeroPlaceholder} alt="Editorial collage of Bangladesh delta waterways, campus architecture, botanical drawings and a traditional riverboat." fill priority placeholder="blur" blurDataURL={imagePlaceholders.workHero} sizes="(max-width: 767px) 100vw, 55vw" />
             </div>
           </div>
           <div className="work-art-labels" aria-hidden="true"><span>Bangladesh</span><span>Youth-led</span></div>

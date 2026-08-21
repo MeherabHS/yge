@@ -12,7 +12,7 @@ export default function EventsHeroCollage({ photos }: { photos: PublicEventGalle
             alt={photo.alt}
             placeholder={photo.placeholder}
             objectPosition={photo.objectPosition}
-            priority={index < 2}
+            priority={index === 0}
             sizes="(max-width: 767px) 84vw, 34vw"
           />
         </figure>

@@ -2,12 +2,12 @@ import { ExternalLink } from 'lucide-react';
 import type { TeamMember } from '@/content/team';
 import TeamPhoto from './TeamPhoto';
 
-export default function LeadershipCard({ member }: { member: TeamMember }) {
+export default function LeadershipCard({ member, priority = false }: { member: TeamMember; priority?: boolean }) {
   const socialLinks = Object.entries(member.social ?? {}).filter((entry): entry is [string, string] => Boolean(entry[1]));
 
   return (
     <article className="leadership-card">
-      <TeamPhoto member={member} priority sizes="(max-width: 620px) 92vw, (max-width: 1024px) 44vw, 360px" />
+      <TeamPhoto member={member} priority={priority} sizes="(max-width: 620px) 92vw, (max-width: 1024px) 44vw, 360px" />
       <div className="leadership-card-copy">
         <h3>{member.name ?? 'Profile pending'}</h3>
         <p>{member.role}</p>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import type { YGEEvent } from '@/types';
 import { PaperTexture, TornPaperEdge } from '@/components/editorial/EditorialPrimitives';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 function formatFeaturedDate(event: YGEEvent) {
   const start = new Date(event.startDate ?? event.currentDate);
@@ -28,6 +29,8 @@ export default function FeaturedEventSpread({ event }: { event: YGEEvent }) {
               width={1024}
               height={1536}
               priority
+              placeholder="blur"
+              blurDataURL={imagePlaceholders.greenGenesis}
               sizes="(max-width: 767px) 92vw, 46vw"
             />
           )}

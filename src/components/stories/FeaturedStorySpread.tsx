@@ -14,7 +14,6 @@ function StoryImage({ story, src, position }: { story: Story; src?: string; posi
       src={src}
       alt={`${position} editorial artwork for ${story.title}`}
       fill
-      loading="eager"
       sizes="(min-width: 1024px) 66vw, 100vw"
       className="stories-feature-image"
     />

@@ -1,7 +1,15 @@
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 import { media } from '@/content/media';
+import { imagePlaceholders } from '@/content/image-placeholders';
 
 export default function StoriesMasthead() {
+  const { props: { srcSet: mobileSrcSet } } = getImageProps({
+    src: media.stories.mastheadMobile,
+    alt: '',
+    fill: true,
+    sizes: 'calc(100vw - 24px)',
+  });
+
   return (
     <section className="stories-masthead stories-grid-lines" aria-labelledby="stories-page-title">
       <div className="stories-masthead-copy">
@@ -16,22 +24,20 @@ export default function StoriesMasthead() {
       </div>
 
       <div className="stories-masthead-art" aria-hidden="true">
-        <Image
-          src={media.stories.masthead}
-          alt=""
-          fill
-          priority
-          sizes="(min-width: 1024px) 42vw, 100vw"
-          className="stories-masthead-image"
-        />
-        <Image
-          src={media.stories.mastheadMobile}
-          alt=""
-          fill
-          priority
-          sizes="(max-width: 767px) calc(100vw - 24px), 1px"
-          className="stories-masthead-image stories-masthead-image-mobile"
-        />
+        <picture>
+          <source media="(max-width: 767px)" srcSet={mobileSrcSet} sizes="calc(100vw - 24px)" />
+          <Image
+            src={media.stories.masthead}
+            alt=""
+            fill
+            loading="eager"
+            fetchPriority="high"
+            placeholder="blur"
+            blurDataURL={imagePlaceholders.storiesMasthead}
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            className="stories-masthead-image"
+          />
+        </picture>
         <span className="stories-art-tape stories-art-tape-top" />
         <span className="stories-art-registration" />
       </div>
