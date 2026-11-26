@@ -3,9 +3,9 @@ import { headers } from "next/headers";
 import {
   Syne,
   Manrope,
-  Instrument_Serif,
   Noto_Sans_Bengali,
   Barlow_Condensed,
+  IBM_Plex_Mono,
 } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/content/site";
@@ -29,14 +29,6 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
-
 const notoBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
   weight: ["400", "700"],
@@ -46,8 +38,15 @@ const notoBengali = Noto_Sans_Bengali({
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-barlow-condensed",
+  display: "swap",
+});
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
   display: "swap",
 });
 
@@ -123,7 +122,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${manrope.variable} ${instrumentSerif.variable} ${notoBengali.variable} ${barlowCondensed.variable}`}
+      className={`${syne.variable} ${manrope.variable} ${notoBengali.variable} ${barlowCondensed.variable} ${ibmPlexMono.variable}`}
     >
       <body className="font-body antialiased">
         <script

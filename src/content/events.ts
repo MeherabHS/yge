@@ -14,91 +14,108 @@ import { media } from "@/content/media";
 export const events: YGEEvent[] = [
   {
     slug: "green-genesis-2026",
+    recapStorySlug: "green-genesis-2026-recap",
     title: "Green Genesis 2026",
     shortTitle: "Green Genesis",
     tagline: "Empowering the next generation of environmental leaders.",
     theme: "Awakening Climate Consciousness from Childhood to Campus",
     motto: "Empowering the next generation of environmental leaders.",
-    status: "upcoming",
-    originalDate: "2026-07-04",
-    startDate: "2026-09-10",
-    currentDate: "2026-09-10",
+    status: "past",
+    originalDate: "2026-07-17",
+    startDate: "2026-09-08",
+    currentDate: "2026-09-08",
     endDate: "2026-09-11",
-    rescheduleNotice:
-      "Green Genesis 2026 has been rescheduled to 10–11 September 2026 at BRAC University.",
     venue: "BRAC University",
     city: "Dhaka",
     country: "Bangladesh",
-    eligibility: "Open to university and college students across Bangladesh",
-    registrationStatus: "coming-soon",
-    registrationUrl: undefined,
+    eligibility:
+      "Junior: Class VI–VIII · Secondary: Class IX–X · Higher Secondary: Class XI–XII · Tertiary: University undergraduate and graduate",
+    registrationStatus: "closed",
+    registrationUrl: "https://greengenesis2026.com/",
     entryFee: "Varies by segment — see event details",
     prizePool: "BDT 1,83,000",
     segments: [
       {
-        name: "Environmental Debate",
-        description: "Competitive debate on climate policy",
-        prize: "BDT 15,000",
+        name: "Environmental Project Display",
+        description:
+          "Present innovative environmental solutions and sustainability-focused projects before judges and visitors.",
+        prize: "BDT 50,000",
       },
       {
-        name: "Climate Photography",
-        description: "Documentary photography of environmental issues",
-        prize: "BDT 12,000",
+        name: "Climate Science Olympiad",
+        description:
+          "Test your knowledge of climate science, Earth systems, environmental issues, and global sustainability challenges.",
+        prize: "BDT 13,500",
       },
       {
-        name: "Eco Film",
-        description: "Short film competition on environmental themes",
-        prize: "BDT 18,000",
+        name: "Eco Decode: Problem-Solving Challenge",
+        description:
+          "Collaborate with your team to develop practical solutions to real-world environmental problems.",
+        prize: "BDT 20,000",
       },
       {
-        name: "Green Startup Pitch",
-        description: "Pitching sustainable business ideas",
-        prize: "BDT 25,000",
+        name: "Climate Essay / Opinion Writing",
+        description:
+          "Express your thoughts on pressing environmental issues through analytical and persuasive writing.",
+        prize: "Crest + certificate from BRAC",
       },
       {
-        name: "Research Paper Presentation",
-        description: "Academic research on environment",
-        prize: "BDT 15,000",
+        name: "Green Journalism",
+        description:
+          "Investigate, document and report environmental stories that deserve attention and action.",
+        prize: "Crest + certificate from BRAC",
+      },
+      {
+        name: "AI Art: Climate Futures",
+        description:
+          "Use artificial intelligence to visualize future climate realities and environmental challenges.",
+        prize: "Crest + certificate from BRAC",
+      },
+      {
+        name: "Environmental Reel",
+        description:
+          "Create impactful short-form video content that inspires environmental awareness and climate action.",
+        prize: "BDT 30,000",
+      },
+      {
+        name: "Nature & Climate Photography",
+        description:
+          "Capture powerful stories of nature, biodiversity, climate change, and environmental conservation through your lens.",
+        prize: "BDT 40,000",
       },
       {
         name: "Poster Design",
-        description: "Climate campaign poster competition",
-        prize: "BDT 10,000",
+        description:
+          "Transform ideas into compelling visual campaigns that advocate for climate awareness and sustainability.",
+        prize: "Crest + certificate from BRAC",
       },
       {
-        name: "Climate Quiz",
-        description: "General knowledge on climate science",
-        prize: "BDT 12,000",
+        name: "Wall Magazine Exhibition",
+        description:
+          "Combine creativity, research, design, and storytelling in a large-scale environmental publication.",
+        prize: "BDT 20,000",
       },
       {
-        name: "Recitation",
-        description: "Environmental poem recitation",
-        prize: "BDT 8,000",
+        name: "Climate Oratory",
+        description:
+          "Take the stage and deliver powerful speeches that inspire environmental responsibility and action.",
+        prize: "Crest + certificate from BRAC",
       },
       {
-        name: "Essay Writing",
-        description: "Written essay on climate justice",
-        prize: "BDT 10,000",
-      },
-      {
-        name: "Art Competition",
-        description: "Visual art inspired by nature and climate",
-        prize: "BDT 12,000",
-      },
-      {
-        name: "Science Olympiad",
-        description: "Environmental science challenges",
-        prize: "BDT 28,000",
-      },
-      {
-        name: "Climate Leadership Panel",
-        description: "Youth leadership discussion",
-        prize: "BDT 18,000",
+        name: "A Letter to Nature",
+        description:
+          "Express your connection with nature through heartfelt and meaningful writing.",
+        prize: "Crest + certificate from BRAC",
       },
     ],
-    organizers: ["Youth for a Green Earth", "BRAC University Outreach Team"],
+    organizers: [
+      "Youth for a Green Earth",
+      "BRACU C3ER",
+      "BRAC University Outreach Team",
+      "BRAC University Environment Club",
+    ],
     contactEmail: "youthforagreenearth@gmail.com",
-    externalUrl: undefined,
+    externalUrl: "https://greengenesis2026.com/",
     image: media.events.greenGenesis2026,
     coverImage: media.events.greenGenesis2026,
     description:
@@ -136,6 +153,7 @@ export const events: YGEEvent[] = [
     registrationStatus: "not-required",
     organizers: ["Youth for a Green Earth"],
     contactEmail: "youthforagreenearth@gmail.com",
+    image: "/images/stories/lga-photo-saplings.jpg",
     coverImage: "/images/events/little-green-artists.jpg",
     description:
       "55 children from Classes 1–5 participated in an art competition and recycling workshop, learning about the 3Rs and receiving sapling distributions. Supported by Kazi Enterprise and Kaisar Foundation.",

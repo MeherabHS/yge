@@ -6,17 +6,6 @@ import { Play, Film } from "lucide-react";
 
 const documentaries = [
   {
-    id: "buriganga",
-    title: "Buriganga: Dying Before Our Eyes",
-    year: "2024",
-    duration: "Short Documentary",
-    description:
-      "The Buriganga River once defined Dhaka. Today it carries the weight of unchecked urban growth. This film follows communities whose lives are shaped by a river under extreme stress.",
-    posterBg: "linear-gradient(135deg, #071A14 0%, #123C2F 100%)",
-    accentColor: "var(--color-electric-teal)",
-    theme: "River · Pollution · Dhaka",
-  },
-  {
     id: "echoes",
     title: "Echoes of Survival: The Climate Refugees of Kamlapur",
     year: "2024",
@@ -142,12 +131,12 @@ export default function DocumentarySection() {
             </h2>
           </div>
           <p className="max-w-xs text-sm font-mono text-[var(--color-muted-sage)]">
-            Three films. Three dimensions of Bangladesh&apos;s environmental
+            Two films. Two dimensions of Bangladesh&apos;s environmental
             reality.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 gap-8">
           {documentaries.map((doc, i) => (
             <DocPoster
               key={doc.id}

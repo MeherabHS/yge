@@ -4,36 +4,26 @@ import { ArrowRight } from "lucide-react";
 import type { Story } from "@/types";
 import { formatDate, readingTimeLabel } from "@/lib/utils";
 
-function StoryImage({
-  story,
-  src,
-  position,
-}: {
-  story: Story;
-  src?: string;
-  position: string;
-}) {
-  if (!src) {
-    return <div className="stories-image-placeholder" aria-hidden="true" />;
-  }
-
+function StoryImage({ src, alt }: { src: string; alt: string }) {
   return (
     <Image
       src={src}
-      alt={`${position} editorial artwork for ${story.title}`}
+      alt={alt}
       fill
       sizes="(min-width: 1024px) 66vw, 100vw"
+      unoptimized
       className="stories-feature-image"
     />
   );
 }
 
 export default function FeaturedStorySpread({ story }: { story: Story }) {
-  const images = [story.heroImage, ...(story.gallery ?? [])].slice(0, 3);
+  // Only real photos are shown; a lone hero fills the whole gallery panel.
+  const supportImages = (story.gallery ?? []).filter(Boolean).slice(0, 2);
 
   return (
     <article
-      className="stories-feature stories-grid-lines"
+      className="stories-feature"
       aria-labelledby={`story-${story.slug}`}
     >
       <div className="stories-feature-copy">
@@ -54,24 +44,35 @@ export default function FeaturedStorySpread({ story }: { story: Story }) {
         <p className="stories-feature-excerpt">{story.excerpt}</p>
       </div>
 
-      <div className="stories-feature-gallery">
+      <div
+        className={`stories-feature-gallery${
+          supportImages.length === 0 ? " stories-feature-gallery-single" : ""
+        }`}
+      >
         <div className="stories-feature-lead">
-          <StoryImage story={story} src={images[0]} position="Lead" />
+          <StoryImage
+            src={story.heroImage}
+            alt={story.heroAlt ?? `Lead editorial artwork for ${story.title}`}
+          />
           <span
             className="stories-gallery-tape stories-gallery-tape-top"
             aria-hidden="true"
           />
         </div>
-        <div className="stories-feature-support">
-          <StoryImage story={story} src={images[1]} position="Supporting" />
-        </div>
-        <div className="stories-feature-support">
-          <StoryImage story={story} src={images[2]} position="Supporting" />
-          <span
-            className="stories-gallery-tape stories-gallery-tape-bottom"
-            aria-hidden="true"
-          />
-        </div>
+        {supportImages.map((src, index) => (
+          <div className="stories-feature-support" key={src}>
+            <StoryImage
+              src={src}
+              alt={`Supporting editorial artwork for ${story.title}`}
+            />
+            {index === 1 && (
+              <span
+                className="stories-gallery-tape stories-gallery-tape-bottom"
+                aria-hidden="true"
+              />
+            )}
+          </div>
+        ))}
       </div>
 
       <div className="stories-feature-link-cell">

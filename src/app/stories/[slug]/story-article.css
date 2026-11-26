@@ -1,7 +1,7 @@
 .story-detail-page {
   --article-forest: #061e17;
   --article-deep: #0a2a20;
-  --article-lime: #b8ff2c;
+  --article-lime: var(--color-acid-leaf);
   --article-paper: #f5f0e5;
   --article-off-white: #faf8f1;
   --article-ink: #101511;
@@ -168,7 +168,7 @@
   max-width: 72ch;
   margin: 0 0 clamp(38px, 4vw, 58px);
   color: var(--article-deep);
-  font: 400 clamp(1.35rem, 1.8vw, 1.7rem) / 1.48 var(--font-instrument-serif);
+  font: 400 clamp(1.35rem, 1.8vw, 1.7rem) / 1.48 var(--font-serif);
 }
 
 .story-article-hero,
@@ -273,6 +273,36 @@
   color: var(--article-coral);
 }
 
+/* Placard list: each item is a torn coral tag, like the story category label. */
+.article-prose > ul.article-placards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 14px;
+  margin: 8px 0 clamp(40px, 4vw, 56px);
+  padding: 0;
+  list-style: none;
+}
+
+.article-placards li {
+  padding: 14px 20px 12px;
+  color: var(--article-off-white);
+  background: var(--article-coral);
+  clip-path: polygon(2% 6%, 98% 0, 100% 92%, 3% 100%, 0 48%);
+  font: 700 clamp(0.95rem, 1.2vw, 1.15rem) / 1.15 var(--font-mono);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  transform: rotate(-1.5deg);
+}
+
+.article-placards li:nth-child(2n) {
+  transform: rotate(1.2deg);
+}
+
+.article-placards li:nth-child(3n) {
+  transform: rotate(-0.6deg);
+}
+
 .article-inline-quote {
   width: 100%;
   max-width: none;
@@ -285,7 +315,7 @@
 .article-inline-quote p {
   max-width: 30ch;
   margin: 0;
-  font: 400 clamp(2rem, 3.2vw, 3.7rem) / 1.02 var(--font-instrument-serif);
+  font: 400 clamp(2rem, 3.2vw, 3.7rem) / 1.02 var(--font-serif);
   text-wrap: balance;
 }
 

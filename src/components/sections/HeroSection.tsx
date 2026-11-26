@@ -81,13 +81,16 @@ export default function HeroSection() {
               animate="visible"
               custom={0.15}
               variants={fadeUp}
-              className="font-display font-800 text-hero leading-[0.98] tracking-tight text-[var(--color-paper-white)]"
+              className="font-mono font-700 text-hero leading-[0.95] tracking-[-0.045em] text-[var(--color-paper-white)]"
             >
-              Bangladesh&apos;s youth are not waiting for a{" "}
-              <em className="font-serif not-italic text-[var(--color-acid-leaf)]">
-                greener future.
-              </em>{" "}
-              They&apos;re building it.
+              <span className="block">YOUTH ARE NOT</span>
+              <span className="block">WAITING FOR A</span>
+              <span className="block text-[var(--color-acid-leaf)]">
+                GREENER FUTURE.
+              </span>
+              <em className="block font-serif italic text-[var(--color-paper-white)]">
+                THEY&apos;RE BUILDING IT.
+              </em>
             </motion.h1>
 
             <motion.p

@@ -1,5 +1,5 @@
-// ============================================================
-// YGE — Media / Image Paths
+﻿// ============================================================
+// YGE â€” Media / Image Paths
 // To replace any image: change the path here.
 // All image references in the UI pull from this file.
 // ============================================================
@@ -12,7 +12,7 @@ export const media = {
     officialLogoSource: "/images/brand/yge-official-logo.jpg",
   },
 
-  // ── Hero ────────────────────────────────────────────────
+  // â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   heroCollage: "/images/hero/hero-collage.jpg",
   heroDeltaCollage: "/images/hero/delta-collage.webp",
   aboutDeltaCollage: "/images/hero/about-delta-collage.webp",
@@ -21,7 +21,7 @@ export const media = {
   workHeroPlaceholder: "/images/work/work-hero-placeholder.webp",
   bangladeshActionMap: "/images/home/bangladesh-action-map.webp",
 
-  // ── Programs ─────────────────────────────────────────────
+  // â”€â”€ Programs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   programs: {
     greenCampus: "/images/programs/green-campus.jpg",
     littleGreenArtists: "/images/programs/little-green-artists.jpg",
@@ -34,14 +34,13 @@ export const media = {
     eidSmile: "/images/programs/eid-smile.jpg",
   },
 
-  // ── Documentaries ────────────────────────────────────────
+  // â”€â”€ Documentaries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   documentaries: {
-    buriganga: "/images/programs/doc-buriganga.jpg",
     echoes: "/images/programs/doc-echoes.jpg",
     breathing: "/images/programs/doc-breathing.jpg",
   },
 
-  // ── Events ───────────────────────────────────────────────
+  // â”€â”€ Events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   events: {
     greenGenesis2026: "/images/events/xyz.webp",
     climateStrike2024: "/images/events/climate-strike-2024.jpg",
@@ -57,23 +56,18 @@ export const media = {
     },
   },
 
-  // ── Stories ──────────────────────────────────────────────
+  // â”€â”€ Stories â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   stories: {
-    masthead: "/images/stories/stories-masthead.webp",
-    mastheadMobile: "/images/stories/stories-masthead-mobile.webp",
     littleGreenArtistsHero: "/images/stories/little-green-artists-hero.jpg",
-    burigangaHero: "/images/stories/buriganga-hero.jpg",
-    plasticAwarenessHero: "/images/stories/plastic-awareness-hero.jpg",
-    greenGenesisHero: "/images/stories/green-genesis-hero.jpg",
   },
 
-  // ── Eco Papers ───────────────────────────────────────────
+  // â”€â”€ Eco Papers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   ecoPapers: {
     eco1: "/images/eco-papers/eco1.jpg",
     eco2: "/images/eco-papers/eco2.jpg",
   },
 
-  // ── Team ─────────────────────────────────────────────────
+  // â”€â”€ Team â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   team: {
     rowshan: "/images/team/rowshan-akter-chowdhury.jpg",
     zakia: "/images/team/zakia-sultana.jpg",
@@ -82,6 +76,6 @@ export const media = {
     mridul: "/images/team/mridul.jpg",
   },
 
-  // ── OG / Social ──────────────────────────────────────────
+  // â”€â”€ OG / Social â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   ogDefault: "/images/hero/delta-collage.webp",
 } as const;

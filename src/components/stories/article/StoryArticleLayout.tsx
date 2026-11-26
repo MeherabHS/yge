@@ -51,14 +51,31 @@ export default function StoryArticleLayout({
               <p className="story-article-intro">{story.excerpt}</p>
 
               {story.heroImage && (
-                <figure className="story-article-hero">
-                  <div className="story-article-hero-media">
+                <figure
+                  className="story-article-hero"
+                  style={
+                    story.heroWidth ? { maxWidth: story.heroWidth } : undefined
+                  }
+                >
+                  <div
+                    className="story-article-hero-media"
+                    style={
+                      story.heroWidth && story.heroHeight
+                        ? {
+                            aspectRatio: `${story.heroWidth} / ${story.heroHeight}`,
+                          }
+                        : undefined
+                    }
+                  >
                     <Image
                       src={story.heroImage}
-                      alt={`Editorial artwork for ${story.title}`}
+                      alt={
+                        story.heroAlt ?? `Editorial artwork for ${story.title}`
+                      }
                       fill
                       priority
                       sizes="(min-width: 1024px) 72vw, 100vw"
+                      unoptimized
                       className="article-media-image"
                     />
                   </div>

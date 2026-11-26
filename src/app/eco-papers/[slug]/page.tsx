@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  Download,
+  BookOpen,
   ExternalLink,
   FileClock,
 } from "lucide-react";
@@ -40,7 +40,18 @@ export default async function EcoPaperDetail({
     .filter((item) => item.slug !== paper.slug)
     .slice(0, 2);
   const pageUrl = `${siteConfig.url}/eco-papers/${paper.slug}`;
-  const citation = `${paper.authors.join(", ")}. (${paper.year ?? "forthcoming"}). ${paper.title}. Youth for a Green Earth.`;
+  const coverStyle = { aspectRatio: paper.coverAspectRatio ?? "3 / 4" };
+  // When a PDF exists, the cover also opens it in the browser's own viewer.
+  const cover = (
+    <Image
+      src={paper.coverImage}
+      alt={paper.coverAlt}
+      fill
+      priority
+      sizes="(min-width: 1024px) 410px, 78vw"
+      className="object-contain"
+    />
+  );
 
   return (
     <article className="eco-detail">
@@ -78,19 +89,22 @@ export default async function EcoPaperDetail({
               </div>
             </dl>
           </div>
-          <div
-            className="eco-detail-cover"
-            style={{ aspectRatio: paper.coverAspectRatio ?? "3 / 4" }}
-          >
-            <Image
-              src={paper.coverImage}
-              alt={paper.coverAlt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 410px, 78vw"
-              className="object-contain"
-            />
-          </div>
+          {paper.documentUrl ? (
+            <a
+              href={paper.documentUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="eco-detail-cover"
+              style={coverStyle}
+              aria-label={`Read ${paper.title} (PDF, opens in a new tab)`}
+            >
+              {cover}
+            </a>
+          ) : (
+            <div className="eco-detail-cover" style={coverStyle}>
+              {cover}
+            </div>
+          )}
         </div>
       </header>
       <div className="eco-detail-body">
@@ -114,7 +128,7 @@ export default async function EcoPaperDetail({
               target="_blank"
               rel="noreferrer"
             >
-              <Download /> Read or download PDF
+              <BookOpen /> Read the paper
             </a>
           ) : (
             <div className="document-pending">
@@ -144,10 +158,6 @@ export default async function EcoPaperDetail({
             </a>
           </div>
         </aside>
-        <section className="citation-block">
-          <span className="section-kicker">Citation</span>
-          <p>{citation}</p>
-        </section>
       </div>
       {related.length > 0 && (
         <section className="related-papers">

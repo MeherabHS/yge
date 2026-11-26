@@ -9,33 +9,33 @@ import { media } from "@/content/media";
 export const resources: Resource[] = [
   {
     slug: "eco-paper-01",
-    title: "Eco Paper 01",
+    title: "Sustainable Agriculture Practices",
     type: "Eco Paper",
-    author: "YGE Research Contributors",
+    author: "YGE Editorial Team",
     designer: "Md. Shahnoor Mridul",
     publishedDate: "2024",
     description:
-      "The inaugural edition of YGE's open-access research series, presenting analysis of a pressing environmental issue affecting Bangladesh. Designed for accessibility and open distribution.",
+      "How can farms keep feeding people without exhausting the land that feeds them? This paper walks through the practices behind sustainable agriculture, from permaculture, organic farming and agroecology to vertical farming, soil health, water conservation, climate-resilient crops, community-supported agriculture, integrated pest management and precision technology. It concludes that together these methods protect soil, water and biodiversity while strengthening food security and local communities.",
     coverImage: media.ecoPapers.eco1,
     coverAlt: "Cover of Eco Paper 01 on sustainable agriculture practices",
     coverAspectRatio: "1 / 1",
-    pdfPath: undefined, // Replace with '/pdfs/eco-paper-01.pdf' when available
+    pdfPath: "/pdfs/eco-paper-01-sustainable-agriculture.pdf",
     tags: ["Environment", "Bangladesh", "Research", "Open Access"],
     featured: true,
   },
   {
     slug: "eco-paper-02",
-    title: "Eco Paper 02",
+    title: "Eco-Friendly Fashion",
     type: "Eco Paper",
-    author: "YGE Research Contributors",
+    author: "YGE Editorial Team",
     designer: "Md. Shahnoor Mridul",
     publishedDate: "2025",
     description:
-      "The second edition of YGE's Eco Paper series. Continuing the tradition of youth-led environmental research, this edition examines another dimension of Bangladesh's environmental challenges.",
+      "Fashion is one of the world's most polluting industries, driven by fast fashion, synthetic fibres and heavy water use. This paper looks at how young people are pushing back: sharing slow-fashion and secondhand habits online, founding sustainable brands, choosing organic and next-generation materials, demanding transparency and embracing circular models like rental and repair. It also weighs the barriers of cost, greenwashing and industry resistance, and argues that youth are the agents of change who can make style and sustainability work together.",
     coverImage: media.ecoPapers.eco2,
     coverAlt: "Cover of Eco Paper 02 on eco-friendly fashion",
     coverAspectRatio: "904 / 1280",
-    pdfPath: undefined, // Replace with '/pdfs/eco-paper-02.pdf' when available
+    pdfPath: "/pdfs/eco-paper-02-eco-friendly-fashion.pdf",
     tags: ["Environment", "Bangladesh", "Research", "Open Access"],
     featured: true,
   },

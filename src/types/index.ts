@@ -60,6 +60,8 @@ export type PartnerRelationship =
 
 export interface Program {
   slug: string;
+  /** Where the programme card links, when not to its first related story. */
+  linkHref?: string;
   title: string;
   shortTitle: string;
   tagline: string;
@@ -96,6 +98,8 @@ export interface EventSegment {
 
 export interface YGEEvent {
   slug: string;
+  /** Story that recaps the event once it has happened. */
+  recapStorySlug?: string;
   title: string;
   shortTitle: string;
   tagline: string;
@@ -136,6 +140,11 @@ export interface Story {
   author: string;
   excerpt: string;
   heroImage: string;
+  /** Describes the hero photo. Falls back to a generic artwork label. */
+  heroAlt?: string;
+  /** Intrinsic hero size. When set, the hero keeps its proportions and never upscales. */
+  heroWidth?: number;
+  heroHeight?: number;
   body: StoryBlock[];
   pullQuote?: string;
   relatedProgramSlug?: string;
@@ -147,9 +156,22 @@ export interface Story {
 export type StoryBlock =
   | { type: "paragraph"; text: string }
   | { type: "heading"; level: 2 | 3; text: string }
-  | { type: "image"; src: string; alt: string; caption?: string }
+  | {
+      type: "image";
+      src: string;
+      alt: string;
+      caption?: string;
+      /** Intrinsic size. When set, the photo keeps its own proportions instead of the 16:10 crop. */
+      width?: number;
+      height?: number;
+    }
   | { type: "quote"; text: string; attribution?: string }
-  | { type: "list"; items: string[] };
+  | {
+      type: "list";
+      items: string[];
+      /** "placards" renders each item as a coral tag, e.g. protest slogans. */
+      variant?: "placards";
+    };
 
 // ─── Resource ────────────────────────────────────────────────
 

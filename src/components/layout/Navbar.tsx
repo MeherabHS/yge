@@ -2,61 +2,22 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 import { primaryCta, primaryNavigation } from "@/content/navigation";
 import { YGEBrandLockup } from "@/components/global/YGEBrandLockup";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open || !mobileMenuRef.current) return;
-
-    const menu = mobileMenuRef.current;
-    const focusable = Array.from(
-      menu.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
-    );
-    const focusTimer = window.setTimeout(() => focusable[0]?.focus(), 60);
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-        toggleRef.current?.focus();
-        return;
-      }
-
-      if (event.key !== "Tab" || focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.clearTimeout(focusTimer);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open]);
-
   const contactActive = pathname === primaryCta.href;
   const prefetchPrimaryRoutes = () => {
     [...primaryNavigation, primaryCta].forEach((item) => {
@@ -65,89 +26,107 @@ export default function Navbar() {
   };
 
   return (
-    <header className="editorial-nav">
-      <nav aria-label="Main navigation">
-        <YGEBrandLockup priority className="editorial-brand-lockup" />
-        <ul className="editorial-nav-links">
-          {primaryNavigation.map((item) => {
-            const active =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  prefetch={true}
-                  aria-current={active ? "page" : undefined}
-                  className={active ? "active" : ""}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-        <Link
-          href={primaryCta.href}
-          prefetch={true}
-          aria-current={contactActive ? "page" : undefined}
-          className={`nav-join${contactActive ? " active" : ""}`}
+    <Sheet open={open} onOpenChange={setOpen}>
+      <header className="editorial-nav">
+        <nav aria-label="Main navigation">
+          <YGEBrandLockup priority className="editorial-brand-lockup" />
+          <ul className="editorial-nav-links">
+            {primaryNavigation.map((item) => {
+              const active =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    prefetch={true}
+                    aria-current={active ? "page" : undefined}
+                    className={active ? "active" : ""}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <Link
+            href={primaryCta.href}
+            prefetch={true}
+            aria-current={contactActive ? "page" : undefined}
+            className={`nav-join${contactActive ? " active" : ""}`}
+          >
+            {primaryCta.label} <ArrowUpRight aria-hidden="true" />
+          </Link>
+          <SheetTrigger asChild>
+            <button
+              className="nav-toggle"
+              onPointerEnter={prefetchPrimaryRoutes}
+              onFocus={prefetchPrimaryRoutes}
+              onClick={prefetchPrimaryRoutes}
+              aria-label={open ? "Close menu" : "Open menu"}
+            >
+              {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+            </button>
+          </SheetTrigger>
+        </nav>
+        <SheetContent
+          id="mobile-navigation"
+          side="top"
+          overlay={false}
+          className="mobile-navigation open"
+          aria-describedby={undefined}
         >
-          {primaryCta.label} <ArrowUpRight aria-hidden="true" />
-        </Link>
-        <button
-          ref={toggleRef}
-          className="nav-toggle"
-          onPointerEnter={prefetchPrimaryRoutes}
-          onFocus={prefetchPrimaryRoutes}
-          onClick={() => {
-            prefetchPrimaryRoutes();
-            setOpen((value) => !value);
-          }}
-          aria-expanded={open}
-          aria-controls="mobile-navigation"
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
-      </nav>
-      <div
-        ref={mobileMenuRef}
-        id="mobile-navigation"
-        className={`mobile-navigation ${open ? "open" : ""}`}
-        aria-hidden={!open}
-      >
-        <p className="font-mono">YGE / BANGLADESH / SINCE 2024</p>
-        <ul>
-          {primaryNavigation.map((item, index) => {
-            const active =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
-            return (
-              <li key={item.href}>
-                <span>0{index + 1}</span>
-                <Link
-                  href={item.href}
-                  prefetch={true}
-                  aria-current={active ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-        <Link
-          href={primaryCta.href}
-          prefetch={true}
-          aria-current={contactActive ? "page" : undefined}
-          onClick={() => setOpen(false)}
-          className="lime-button mobile-contact-cta"
-        >
-          {primaryCta.label} <ArrowRight aria-hidden="true" />
-        </Link>
-      </div>
-    </header>
+          <div className="mobile-menu-utility" aria-hidden="true">
+            <span>YGE</span>
+            <span>Bangladesh</span>
+            <span>Since 2024</span>
+          </div>
+          <div className="mobile-menu-head">
+            <SheetTitle asChild>
+              <span className="mobile-menu-brand">Youth for a Green Earth</span>
+            </SheetTitle>
+            <SheetClose asChild>
+              <button
+                type="button"
+                className="mobile-menu-close"
+                aria-label="Close menu"
+              >
+                <X aria-hidden="true" />
+              </button>
+            </SheetClose>
+          </div>
+          <ul>
+            {primaryNavigation.map((item, index) => {
+              const active =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <li key={item.href}>
+                  <span>0{index + 1}</span>
+                  <Link
+                    href={item.href}
+                    prefetch={true}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                    className={active ? "active" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <Link
+            href={primaryCta.href}
+            prefetch={true}
+            aria-current={contactActive ? "page" : undefined}
+            onClick={() => setOpen(false)}
+            className="lime-button mobile-contact-cta"
+          >
+            {primaryCta.label} <ArrowRight aria-hidden="true" />
+          </Link>
+        </SheetContent>
+      </header>
+    </Sheet>
   );
 }

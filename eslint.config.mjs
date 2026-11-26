@@ -9,6 +9,7 @@ export default defineConfig([
     "node_modules/**",
     ".next/**",
     ".codex/**",
+    "yge-temp/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/content/site";
-import { programs } from "@/content/programs";
 import { events } from "@/content/events";
 import { stories } from "@/content/stories";
 import { resources } from "@/content/resources";
 import { ecoPapers } from "@/content/eco-papers";
+import { features } from "@/content/features";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
@@ -13,12 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/about",
     "/work",
-    "/impact",
     "/eco-papers",
     "/stories",
-    "/events",
+    "/snapshots",
     "/resources",
-    "/team",
+    ...(features.teamPageLive ? ["/team"] : []),
     "/contact",
     "/privacy",
     "/safeguarding",
@@ -27,13 +26,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: route === "" ? 1.0 : 0.8,
-  }));
-
-  const programRoutes = programs.map((p) => ({
-    url: `${baseUrl}/work/${p.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
   }));
 
   const ecoPaperRoutes = ecoPapers.map((p) => ({
@@ -66,7 +58,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
-    ...programRoutes,
     ...ecoPaperRoutes,
     ...eventRoutes,
     ...storyRoutes,

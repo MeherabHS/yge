@@ -27,7 +27,6 @@ export default function EventsHero({
       </svg>
       <div className="events-shell events-hero-grid">
         <div className="events-hero-copy">
-          <p className="events-kicker">Gatherings &amp; competitions</p>
           <h1 id="events-page-title">
             <span>Where action</span>
             <span>

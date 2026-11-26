@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { TeamMember } from "@/content/team";
 import { media } from "@/content/media";
-import { imagePlaceholders } from "@/content/image-placeholders";
 import { TornPaperEdge } from "@/components/editorial/EditorialPrimitives";
 
 export default function TeamHero({
@@ -21,8 +20,6 @@ export default function TeamHero({
           alt=""
           fill
           priority
-          placeholder="blur"
-          blurDataURL={imagePlaceholders.heroDeltaCollage}
           sizes="100vw"
           className="team-hero-background-image"
         />

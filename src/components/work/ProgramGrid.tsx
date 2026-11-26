@@ -4,9 +4,10 @@ import Link from "next/link";
 import { ArrowRight, SearchX } from "lucide-react";
 import type { Program } from "@/types";
 import ProgramMarker from "./ProgramMarker";
-import { programYear } from "./work-utils";
+import { programStoryHref, programYear } from "./work-utils";
 
 function ProgramCard({ program, index }: { program: Program; index: number }) {
+  const storyHref = programStoryHref(program);
   return (
     <article className="program-grid-card">
       <div className="program-grid-marker">
@@ -20,7 +21,11 @@ function ProgramCard({ program, index }: { program: Program; index: number }) {
           {program.status}
         </span>
         <h3>
-          <Link href={`/work/${program.slug}`}>{program.title}</Link>
+          {storyHref ? (
+            <Link href={storyHref}>{program.title}</Link>
+          ) : (
+            program.title
+          )}
         </h3>
         <p>{program.summary}</p>
       </div>
@@ -28,12 +33,14 @@ function ProgramCard({ program, index }: { program: Program; index: number }) {
         <span>
           {programYear(program)} · {program.location}
         </span>
-        <Link
-          href={`/work/${program.slug}`}
-          aria-label={`View ${program.title}`}
-        >
-          <ArrowRight aria-hidden="true" />
-        </Link>
+        {storyHref && (
+          <Link
+            href={storyHref}
+            aria-label={`Read the story of ${program.title}`}
+          >
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        )}
       </footer>
     </article>
   );

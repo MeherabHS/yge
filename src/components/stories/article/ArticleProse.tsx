@@ -6,14 +6,29 @@ function ArticleFigure({
 }: {
   block: Extract<StoryBlock, { type: "image" }>;
 }) {
+  const { width, height } = block;
+  const hasSize = Boolean(width && height);
+  const portrait = Boolean(width && height && height > width);
+  // Photos with a known size keep their own proportions; portraits stay narrow.
   return (
-    <figure className="article-figure">
-      <div className="article-figure-media">
+    <figure
+      className="article-figure"
+      style={portrait ? { maxWidth: 560 } : undefined}
+    >
+      <div
+        className="article-figure-media"
+        style={hasSize ? { aspectRatio: `${width} / ${height}` } : undefined}
+      >
         <Image
           src={block.src}
           alt={block.alt}
           fill
-          sizes="(min-width: 1024px) 72vw, 100vw"
+          sizes={
+            portrait
+              ? "(min-width: 768px) 560px, 100vw"
+              : "(min-width: 1024px) 72vw, 100vw"
+          }
+          unoptimized
           className="article-media-image"
         />
       </div>
@@ -39,7 +54,11 @@ function ArticleBlock({ block }: { block: StoryBlock }) {
       );
     case "list":
       return (
-        <ul>
+        <ul
+          className={
+            block.variant === "placards" ? "article-placards" : undefined
+          }
+        >
           {block.items.map((item) => (
             <li key={item}>{item}</li>
           ))}

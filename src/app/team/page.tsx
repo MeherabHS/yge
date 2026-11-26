@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import TeamClosingCTA from "@/components/team/TeamClosingCTA";
 import TeamDepartmentSection from "@/components/team/TeamDepartmentSection";
 import TeamHero from "@/components/team/TeamHero";
 import { teamDepartments, teamMembers } from "@/content/team";
+import { features } from "@/content/features";
 
 export const metadata: Metadata = {
   title: { absolute: "Our Team | Youth for a Green Earth" },
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
+  if (!features.teamPageLive) notFound();
+
   const departments = [...teamDepartments].sort((a, b) => a.order - b.order);
   const visibleMembers = teamMembers.filter(
     (member) => member.visible !== false,

@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import type { YGEEvent } from "@/types";
 import { formatEventDate } from "@/content/events";
+import { eventStatusLabel } from "@/lib/utils";
 import {
   HalftonePattern,
   PaperTexture,
   TapeStrip,
 } from "@/components/editorial/EditorialPrimitives";
-import { imagePlaceholders } from "@/content/image-placeholders";
 
 const posterAlt =
   "Green Genesis 2026 event poster illustrating a journey from childhood climate learning to university-level environmental leadership.";
@@ -42,8 +42,6 @@ export default function FeaturedEvent({ event }: { event: YGEEvent }) {
                 height={1568}
                 sizes="(max-width: 780px) 92vw, (max-width: 1200px) 44vw, 620px"
                 priority
-                placeholder="blur"
-                blurDataURL={imagePlaceholders.greenGenesis}
                 style={{ objectFit: "contain" }}
               />
             </div>
@@ -54,7 +52,9 @@ export default function FeaturedEvent({ event }: { event: YGEEvent }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.25 }}
           >
-            <span className="event-status">{event.status}</span>
+            <span className="event-status">
+              {eventStatusLabel(event.status)}
+            </span>
             <h2 id="featured-event-title">{event.title}</h2>
             <p className="featured-event-theme">{event.theme}</p>
             <p className="featured-event-motto">{event.motto}</p>
@@ -75,11 +75,20 @@ export default function FeaturedEvent({ event }: { event: YGEEvent }) {
               </div>
             </dl>
             <div className="featured-event-actions">
-              <Link href={`/events/${event.slug}`} className="lime-button">
-                View event details <ArrowRight aria-hidden="true" />
-              </Link>
-              <Link href="/events" className="paper-link">
-                Explore all events <ArrowRight aria-hidden="true" />
+              {event.recapStorySlug && event.status === "past" ? (
+                <Link
+                  href={`/stories/${event.recapStorySlug}`}
+                  className="lime-button"
+                >
+                  Read the recap <ArrowRight aria-hidden="true" />
+                </Link>
+              ) : (
+                <Link href={`/events/${event.slug}`} className="lime-button">
+                  View event details <ArrowRight aria-hidden="true" />
+                </Link>
+              )}
+              <Link href="/snapshots" className="paper-link">
+                Explore our snapshots <ArrowRight aria-hidden="true" />
               </Link>
             </div>
           </motion.article>

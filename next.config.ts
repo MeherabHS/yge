@@ -23,11 +23,16 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [320, 375, 640, 768, 1024, 1280, 1440, 1536, 1920],
     imageSizes: [32, 48, 64, 96, 128, 256, 384],
+    // 92 is used for story photography, which is already compressed at source.
+    qualities: [75, 92],
     minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [],
     dangerouslyAllowLocalIP: false,
     dangerouslyAllowSVG: false,
     maximumRedirects: 0,
+  },
+  async redirects() {
+    return [{ source: "/events", destination: "/snapshots", permanent: true }];
   },
   async headers() {
     return [

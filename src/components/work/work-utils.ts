@@ -20,8 +20,16 @@ export type FilterOptions = {
   statuses: ProgramStatus[];
 };
 
+/** Programmes have no detail pages; link to a related page or story when one exists. */
+export function programStoryHref(program: Program): string | null {
+  if (program.linkHref) return program.linkHref;
+  const slug = program.relatedStorySlugs[0];
+  return slug ? `/stories/${slug}` : null;
+}
+
 export function programYear(program: Program): string {
-  return program.date.match(/\d{4}/)?.[0] ?? "Undated";
+  // For ranges such as "2024–2026", show and sort by the most recent year.
+  return program.date.match(/\d{4}/g)?.at(-1) ?? "Undated";
 }
 
 export function deriveFilterOptions(programs: Program[]): FilterOptions {

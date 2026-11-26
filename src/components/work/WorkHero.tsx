@@ -8,7 +8,6 @@ import {
   TornPaperEdge,
 } from "@/components/editorial/EditorialPrimitives";
 import { media } from "@/content/media";
-import { imagePlaceholders } from "@/content/image-placeholders";
 
 export default function WorkHero() {
   return (
@@ -67,8 +66,6 @@ export default function WorkHero() {
                 alt="Editorial collage of Bangladesh delta waterways, campus architecture, botanical drawings and a traditional riverboat."
                 fill
                 priority
-                placeholder="blur"
-                blurDataURL={imagePlaceholders.workHero}
                 sizes="(max-width: 767px) 100vw, 55vw"
               />
             </div>

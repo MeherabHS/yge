@@ -25,12 +25,6 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      <div className="stories-transition" aria-hidden="true">
-        <div className="container-yge stories-transition-inner">
-          <span />
-        </div>
-      </div>
-
       <section className="stories-content-section" aria-label="Story index">
         <div className="container-yge stories-container">
           {featured && <FeaturedStorySpread story={featured} />}

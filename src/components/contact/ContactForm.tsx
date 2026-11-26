@@ -5,6 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
 import { contactConfig } from "@/content/site";
 import ContactTopicSelector from "./ContactTopicSelector";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormValues = {
   name: string;
@@ -261,10 +264,10 @@ export default function ContactForm() {
         </div>
 
         <div className="contact-line-field">
-          <label htmlFor="contact-name">
+          <Label htmlFor="contact-name">
             Full name <span aria-hidden="true">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             ref={nameRef}
             id="contact-name"
             name="name"
@@ -286,10 +289,10 @@ export default function ContactForm() {
         </div>
 
         <div className="contact-line-field">
-          <label htmlFor="contact-email">
+          <Label htmlFor="contact-email">
             Email address <span aria-hidden="true">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             ref={emailRef}
             id="contact-email"
             name="email"
@@ -311,10 +314,10 @@ export default function ContactForm() {
         </div>
 
         <div className="contact-line-field">
-          <label htmlFor="contact-organization">
+          <Label htmlFor="contact-organization">
             Organization / School (optional)
-          </label>
-          <input
+          </Label>
+          <Input
             id="contact-organization"
             name="organization"
             type="text"
@@ -335,10 +338,10 @@ export default function ContactForm() {
         </div>
 
         <div className="contact-message-field">
-          <label htmlFor="contact-message">
+          <Label htmlFor="contact-message">
             Message <span aria-hidden="true">*</span>
-          </label>
-          <textarea
+          </Label>
+          <Textarea
             ref={messageRef}
             id="contact-message"
             name="message"

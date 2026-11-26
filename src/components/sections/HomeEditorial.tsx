@@ -16,7 +16,6 @@ import { ecoPapers } from "@/content/eco-papers";
 import { getFeaturedStory } from "@/content/stories";
 import { siteConfig } from "@/content/site";
 import { media } from "@/content/media";
-import { imagePlaceholders } from "@/content/image-placeholders";
 
 const manifesto =
   "EDUCATE  ·  ORGANIZE  ·  CREATE  ·  ADVOCATE  ·  ACT  ·  LEARN  ·  COLLABORATE  ·  RESTORE  ·  ";
@@ -26,7 +25,7 @@ const posters = [
     number: "01",
     title: "Climate Education",
     copy: "Building environmental literacy from primary schools to universities through art, discussion and hands-on learning.",
-    href: "/work/little-green-artists",
+    href: "/stories/little-green-artists-story",
     className: "poster-education",
     icon: BookOpen,
   },
@@ -34,7 +33,7 @@ const posters = [
     number: "02",
     title: "Youth Voice & Advocacy",
     copy: "Amplifying Bangladeshi youth perspectives in local and national climate conversations.",
-    href: "/work/youth-in-action-cop29",
+    href: "/stories/global-climate-strike-2025",
     className: "poster-voice",
     icon: Megaphone,
   },
@@ -42,7 +41,7 @@ const posters = [
     number: "03",
     title: "Community Action",
     copy: "Grassroots campaigns tackling plastic pollution, waste and ecological restoration across Bangladesh.",
-    href: "/work/plastic-awareness-1",
+    href: "/stories/adamjee-cantonment-3r-session",
     className: "poster-community",
     icon: Users,
   },
@@ -50,7 +49,7 @@ const posters = [
     number: "04",
     title: "Creative Climate Media",
     copy: "Documentaries, photography and storytelling that make environmental crises visible.",
-    href: "/work/environmental-documentaries",
+    href: "/work",
     className: "poster-media",
     icon: Camera,
   },
@@ -58,7 +57,7 @@ const posters = [
     number: "05",
     title: "Green Campus Network",
     copy: "Empowering young people to build more sustainable university communities.",
-    href: "/work/project-green-campus",
+    href: "/stories/green-genesis-2026-recap",
     className: "poster-campus",
     icon: GraduationCap,
   },
@@ -138,16 +137,25 @@ export default function HomeEditorial() {
   return (
     <div className="home-editorial">
       <section className="editorial-hero" aria-labelledby="home-title">
-        <Image
-          src={media.heroDeltaCollage}
-          alt="Aerial collage of the Bangladesh river delta and a traditional river boat"
-          fill
-          priority
-          placeholder="blur"
-          blurDataURL={imagePlaceholders.heroDeltaCollage}
-          className="hero-collage"
-          sizes="100vw"
-        />
+        {/* Decorative background loop: muted, no controls, text sits on top. */}
+        <video
+          className="hero-collage hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/home/home-hero-poster.jpg"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source
+            src="/videos/home-hero-mobile.mp4"
+            type="video/mp4"
+            media="(max-width: 767px)"
+          />
+          <source src="/videos/home-hero.mp4" type="video/mp4" />
+        </video>
         <div className="hero-shade" aria-hidden="true" />
         <RiverContours />
         <div className="hero-copy">
@@ -164,8 +172,7 @@ export default function HomeEditorial() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            Bangladesh&apos;s
-            <br /> youth are not
+            youth are not
             <br /> waiting for a<br />
             <strong>greener future.</strong>
             <br />
@@ -305,11 +312,20 @@ export default function HomeEditorial() {
             <small>— YGE FIELD TEAM</small>
           </aside>
           <article className="featured-field-story">
-            <div className="story-art" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
+            <Link
+              href={`/stories/${story.slug}`}
+              className="story-photo"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <Image
+                src={story.heroImage}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                quality={92}
+              />
+            </Link>
             <div>
               <span className="campaign-label">Feature story</span>
               <h3>{story.title}</h3>

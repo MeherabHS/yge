@@ -1,13 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ecoPapers } from "@/content/eco-papers";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function EcoPapersArchive() {
-  const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [year, setYear] = useState("All");
   const categories = [
@@ -18,18 +24,10 @@ export default function EcoPapersArchive() {
     "All",
     ...new Set(ecoPapers.map((paper) => String(paper.year)).filter(Boolean)),
   ];
-  const visible = useMemo(
-    () =>
-      ecoPapers.filter((paper) => {
-        const searchText =
-          `${paper.title} ${paper.subtitle} ${paper.summary} ${paper.authors.join(" ")} ${paper.topics.join(" ")}`.toLowerCase();
-        return (
-          searchText.includes(query.toLowerCase()) &&
-          (category === "All" || paper.category === category) &&
-          (year === "All" || String(paper.year) === year)
-        );
-      }),
-    [query, category, year],
+  const visible = ecoPapers.filter(
+    (paper) =>
+      (category === "All" || paper.category === category) &&
+      (year === "All" || String(paper.year) === year),
   );
   const featured = ecoPapers.find((paper) => paper.featured) ?? ecoPapers[0];
 
@@ -74,39 +72,38 @@ export default function EcoPapersArchive() {
           <h2 id="archive-title">Browse the issues.</h2>
         </div>
         <div className="archive-filters">
-          <label>
-            <span>Search</span>
-            <span className="search-box">
-              <Search aria-hidden="true" />
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Title, author or topic"
-              />
-            </span>
-          </label>
-          <label>
-            <span>Category</span>
-            <select
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-            >
-              {categories.map((item) => (
-                <option key={item}>{item}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Year</span>
-            <select
-              value={year}
-              onChange={(event) => setYear(event.target.value)}
-            >
-              {years.map((item) => (
-                <option key={item}>{item}</option>
-              ))}
-            </select>
-          </label>
+          {[
+            {
+              id: "eco-category",
+              label: "Category",
+              value: category,
+              set: setCategory,
+              items: categories,
+            },
+            {
+              id: "eco-year",
+              label: "Year",
+              value: year,
+              set: setYear,
+              items: years,
+            },
+          ].map((filter) => (
+            <label key={filter.id} htmlFor={filter.id}>
+              <span>{filter.label}</span>
+              <Select value={filter.value} onValueChange={filter.set}>
+                <SelectTrigger id={filter.id} aria-label={filter.label}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {filter.items.map((item) => (
+                    <SelectItem key={item} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </label>
+          ))}
         </div>
         {visible.length ? (
           <div className="archive-covers">
@@ -147,10 +144,9 @@ export default function EcoPapersArchive() {
         ) : (
           <div className="archive-empty">
             <strong>No papers found.</strong>
-            <p>Try a broader search or clear the filters.</p>
+            <p>Try a different category or year.</p>
             <button
               onClick={() => {
-                setQuery("");
                 setCategory("All");
                 setYear("All");
               }}

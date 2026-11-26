@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Program } from "@/types";
-import { programYear } from "./work-utils";
+import { programStoryHref, programYear } from "./work-utils";
 import ProgramMarker from "./ProgramMarker";
 
 export default function ProgramIndexRow({
@@ -13,6 +13,7 @@ export default function ProgramIndexRow({
   program: Program;
   index: number;
 }) {
+  const storyHref = programStoryHref(program);
   return (
     <article
       className={`program-index-row ${index % 2 ? "index-tone-dark" : "index-tone-paper"}`}
@@ -22,7 +23,11 @@ export default function ProgramIndexRow({
       </span>
       <ProgramMarker program={program} index={index} />
       <h3>
-        <Link href={`/work/${program.slug}`}>{program.title}</Link>
+        {storyHref ? (
+          <Link href={storyHref}>{program.title}</Link>
+        ) : (
+          program.title
+        )}
       </h3>
       <span className="program-index-category">{program.category}</span>
       <span>{programYear(program)}</span>
@@ -30,13 +35,17 @@ export default function ProgramIndexRow({
       <span className={`program-status status-${program.status.toLowerCase()}`}>
         {program.status}
       </span>
-      <Link
-        href={`/work/${program.slug}`}
-        className="program-index-arrow"
-        aria-label={`View ${program.title}`}
-      >
-        <ArrowRight aria-hidden="true" />
-      </Link>
+      {storyHref ? (
+        <Link
+          href={storyHref}
+          className="program-index-arrow"
+          aria-label={`Read the story of ${program.title}`}
+        >
+          <ArrowRight aria-hidden="true" />
+        </Link>
+      ) : (
+        <span className="program-index-arrow" aria-hidden="true" />
+      )}
     </article>
   );
 }

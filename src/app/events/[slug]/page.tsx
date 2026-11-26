@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Calendar,
-  MapPin,
-  Trophy,
-  Users,
-  AlertTriangle,
-  ExternalLink,
-} from "lucide-react";
-import { events, getEventBySlug, formatEventDate } from "@/content/events";
+import { ArrowLeft, AlertTriangle, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { events, getEventBySlug } from "@/content/events";
+import { eventDayRange, eventStatusLabel } from "@/lib/utils";
 
 export async function generateStaticParams() {
   return events.map((e) => ({ slug: e.slug }));
@@ -39,8 +33,10 @@ export default async function EventPage({
   const event = getEventBySlug(slug);
   if (!event) notFound();
 
+  const eventYear = (event.startDate ?? event.currentDate).slice(0, 4);
+
   return (
-    <div style={{ backgroundColor: "var(--color-paper-white)" }}>
+    <div className="event-detail-page">
       {/* Reschedule notice */}
       {event.rescheduleNotice && (
         <div
@@ -48,7 +44,7 @@ export default async function EventPage({
           style={{ backgroundColor: "var(--color-climate-coral)" }}
           role="alert"
         >
-          <div className="container-yge flex items-center gap-3">
+          <div className="container-yge event-notice-inner">
             <AlertTriangle
               size={16}
               aria-hidden="true"
@@ -65,303 +61,188 @@ export default async function EventPage({
       )}
 
       {/* Hero */}
-      <section
-        className="section-pad pt-24"
-        style={{ backgroundColor: "var(--color-forest-ink)" }}
-        aria-label={`${event.title} hero`}
-      >
-        <div className="container-yge">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider mb-8 hover:opacity-75"
-            style={{ color: "var(--color-muted-sage)" }}
-          >
-            <ArrowLeft size={14} aria-hidden="true" /> All Events
-          </Link>
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span
-                className="font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full"
-                style={{
-                  backgroundColor: "rgba(200,255,61,0.15)",
-                  color: "var(--color-acid-leaf)",
-                }}
-              >
-                {event.status}
-              </span>
-              {event.registrationStatus && (
-                <span
-                  className="font-mono text-xs"
-                  style={{ color: "var(--color-muted-sage)" }}
-                >
-                  Registration: {event.registrationStatus}
-                </span>
-              )}
+      <section className="event-detail-hero" aria-label={`${event.title} hero`}>
+        <div
+          className={`container-yge event-hero-grid${event.image ? "" : " event-hero-solo"}`}
+        >
+          <div className="event-hero-copy">
+            <div className="event-hero-kicker">
+              {eventStatusLabel(event.status)} / {eventYear}
             </div>
-            <h1
-              className="font-display font-800 text-hero leading-tight tracking-tight mb-4"
-              style={{ color: "var(--color-paper-white)" }}
-            >
-              {event.title}
+            <h1>
+              {event.shortTitle}
+              {!event.shortTitle.includes(eventYear) && (
+                <span>{eventYear}</span>
+              )}
             </h1>
-            <p
-              className="font-serif italic text-subhead mb-8"
-              style={{ color: "var(--color-electric-teal)" }}
-            >
-              {event.tagline}
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div
-                className="p-4 rounded-xl"
-                style={{ backgroundColor: "rgba(200,255,61,0.06)" }}
-              >
-                <Calendar
-                  size={16}
-                  aria-hidden="true"
-                  style={{
-                    color: "var(--color-acid-leaf)",
-                    marginBottom: "0.5rem",
-                  }}
-                />
-                <p
-                  className="font-mono text-xs"
-                  style={{ color: "var(--color-muted-sage)" }}
-                >
-                  Date
-                </p>
-                <p
-                  className="font-display font-600 text-sm"
-                  style={{ color: "var(--color-warm-cream)" }}
-                >
-                  {formatEventDate(event)}
-                </p>
-              </div>
-              <div
-                className="p-4 rounded-xl"
-                style={{ backgroundColor: "rgba(200,255,61,0.06)" }}
-              >
-                <MapPin
-                  size={16}
-                  aria-hidden="true"
-                  style={{
-                    color: "var(--color-acid-leaf)",
-                    marginBottom: "0.5rem",
-                  }}
-                />
-                <p
-                  className="font-mono text-xs"
-                  style={{ color: "var(--color-muted-sage)" }}
-                >
-                  Venue
-                </p>
-                <p
-                  className="font-display font-600 text-sm"
-                  style={{ color: "var(--color-warm-cream)" }}
-                >
-                  {event.venue}
-                </p>
-              </div>
-              {event.prizePool && (
-                <div
-                  className="p-4 rounded-xl"
-                  style={{ backgroundColor: "rgba(200,255,61,0.06)" }}
-                >
-                  <Trophy
-                    size={16}
-                    aria-hidden="true"
-                    style={{
-                      color: "var(--color-solar-yellow)",
-                      marginBottom: "0.5rem",
-                    }}
-                  />
-                  <p
-                    className="font-mono text-xs"
-                    style={{ color: "var(--color-muted-sage)" }}
-                  >
-                    Prize Pool
-                  </p>
-                  <p
-                    className="font-display font-600 text-sm"
-                    style={{ color: "var(--color-solar-yellow)" }}
-                  >
-                    {event.prizePool}
-                  </p>
-                </div>
-              )}
-              {event.segments && (
-                <div
-                  className="p-4 rounded-xl"
-                  style={{ backgroundColor: "rgba(200,255,61,0.06)" }}
-                >
-                  <Users
-                    size={16}
-                    aria-hidden="true"
-                    style={{
-                      color: "var(--color-electric-teal)",
-                      marginBottom: "0.5rem",
-                    }}
-                  />
-                  <p
-                    className="font-mono text-xs"
-                    style={{ color: "var(--color-muted-sage)" }}
-                  >
-                    Segments
-                  </p>
-                  <p
-                    className="font-display font-600 text-sm"
-                    style={{ color: "var(--color-warm-cream)" }}
-                  >
-                    {event.segments.length}
-                  </p>
-                </div>
-              )}
-            </div>
+            <p className="event-hero-tagline">{event.tagline}</p>
+            {event.theme && <p className="event-hero-theme">{event.theme}</p>}
+            {event.registrationStatus && (
+              <p className="event-registration">
+                Registration: {event.registrationStatus}
+              </p>
+            )}
+            <Link href="/snapshots" className="event-back-link">
+              <ArrowLeft size={14} aria-hidden="true" /> Our snapshots
+            </Link>
           </div>
+          {event.image && (
+            <div className="event-hero-art">
+              <Image
+                src={event.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 42vw, 90vw"
+                className="object-cover"
+              />
+              <span className="event-hero-art-label">
+                YGE / FLAGSHIP COMPETITION
+              </span>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Body */}
-      <div className="section-pad">
+      <section className="event-facts" aria-label="Event facts">
+        <div className="container-yge event-facts-grid">
+          <div>
+            <b>
+              {eventDayRange(
+                event.startDate ?? event.currentDate,
+                event.endDate,
+              )}
+            </b>
+            <span>
+              {new Date(
+                event.startDate ?? event.currentDate,
+              ).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
+            </span>
+          </div>
+          <div>
+            <b>{event.city}</b>
+            <span>
+              {event.venue !== event.city ? event.venue : event.country}
+            </span>
+          </div>
+          {event.prizePool && (
+            <div>
+              <b>{event.prizePool}</b>
+              <span>Total prize pool</span>
+            </div>
+          )}
+          {event.segments && event.segments.length > 0 && (
+            <div>
+              <b>{event.segments.length}</b>
+              <span>Competition segments</span>
+            </div>
+          )}
+        </div>
+      </section>
+      <main className="event-detail-main">
         <div className="container-yge">
-          <div className="grid lg:grid-cols-3 gap-16">
-            <div className="lg:col-span-2 space-y-12">
-              <div>
-                <p
-                  className="font-mono text-xs uppercase tracking-widest mb-3"
-                  style={{ color: "var(--color-muted-sage)" }}
-                >
-                  About This Event
-                </p>
-                <p
-                  className="text-body-lg leading-relaxed"
-                  style={{ color: "var(--color-charcoal)" }}
-                >
-                  {event.description}
-                </p>
-              </div>
-              {event.segments && event.segments.length > 0 && (
-                <div>
-                  <p
-                    className="font-mono text-xs uppercase tracking-widest mb-6"
-                    style={{ color: "var(--color-muted-sage)" }}
-                  >
-                    Competition Segments
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {event.segments.map((seg, i) => (
-                      <div
-                        key={i}
-                        className="p-4 rounded-xl border"
-                        style={{ borderColor: "rgba(158,174,163,0.2)" }}
-                      >
-                        <p
-                          className="font-display font-600 text-sm mb-1"
-                          style={{ color: "var(--color-forest-ink)" }}
-                        >
-                          {seg.name}
-                        </p>
-                        {seg.description && (
-                          <p
-                            className="text-xs mb-2"
-                            style={{ color: "var(--color-muted-sage)" }}
-                          >
-                            {seg.description}
-                          </p>
-                        )}
-                        {seg.prize && (
-                          <p
-                            className="font-mono text-xs"
-                            style={{ color: "var(--color-solar-yellow)" }}
-                          >
-                            {seg.prize}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <section className="event-intro">
+            <div className="event-section-label">
+              <span>01</span>
+              <strong>
+                About
+                <br />
+                {event.shortTitle}
+              </strong>
+            </div>
+            <div>
+              <p className="event-lede">{event.description}</p>
+              {event.rescheduleNotice && (
+                <p className="event-reschedule">{event.rescheduleNotice}</p>
               )}
             </div>
-
-            {/* Sidebar */}
-            <aside className="space-y-6">
-              {event.eligibility && (
-                <div
-                  className="p-5 rounded-2xl"
-                  style={{ backgroundColor: "var(--color-mist-green)" }}
-                >
-                  <p
-                    className="font-mono text-xs uppercase tracking-widest mb-2"
-                    style={{ color: "var(--color-muted-sage)" }}
-                  >
-                    Eligibility
-                  </p>
-                  <p
-                    className="text-sm"
-                    style={{ color: "var(--color-charcoal)" }}
-                  >
-                    {event.eligibility}
-                  </p>
+          </section>
+          {event.prizePool && (
+            <section className="event-prize">
+              <span>Total prize pool</span>
+              <strong>{event.prizePool}</strong>
+              <em>{event.motto}</em>
+            </section>
+          )}
+          {event.segments && event.segments.length > 0 && (
+            <section className="event-segments">
+              <header>
+                <div>
+                  <span>02 / PROGRAMME</span>
+                  <h2>
+                    Competition
+                    <br />
+                    Segments
+                  </h2>
                 </div>
-              )}
-              <div
-                className="p-5 rounded-2xl"
-                style={{ backgroundColor: "var(--color-mist-green)" }}
-              >
-                <p
-                  className="font-mono text-xs uppercase tracking-widest mb-3"
-                  style={{ color: "var(--color-muted-sage)" }}
-                >
-                  Organizers
-                </p>
-                {event.organizers.map((org) => (
-                  <p
-                    key={org}
-                    className="font-display font-600 text-sm"
-                    style={{ color: "var(--color-forest-ink)" }}
-                  >
-                    {org}
-                  </p>
+                <strong>{event.segments.length}</strong>
+              </header>
+              <div className="event-segment-list">
+                {event.segments.map((seg, i) => (
+                  <article key={seg.name}>
+                    <b>{String(i + 1).padStart(2, "0")}</b>
+                    <div>
+                      <h3>{seg.name}</h3>
+                      <p>{seg.description}</p>
+                    </div>
+                    <span>{seg.prize}</span>
+                  </article>
                 ))}
               </div>
-              {event.contactEmail && (
-                <div
-                  className="p-5 rounded-2xl"
-                  style={{ backgroundColor: "var(--color-forest-ink)" }}
+            </section>
+          )}
+          <section className="event-participation">
+            <div>
+              <span>03 / PARTICIPATION</span>
+              <h2>Who can join?</h2>
+              {event.eligibility && <p>{event.eligibility}</p>}
+            </div>
+            <div>
+              <span>Organized by</span>
+              {event.organizers.map((org) => (
+                <p key={org}>{org}</p>
+              ))}
+            </div>
+          </section>
+          <section className="event-final-cta">
+            <div>
+              <span>
+                {event.status === "past"
+                  ? "THANK YOU FOR TAKING PART"
+                  : "READY TO TAKE PART?"}
+              </span>
+              <h2>
+                {event.shortTitle}
+                {!event.shortTitle.includes(eventYear) && ` ${eventYear}`}
+              </h2>
+            </div>
+            <div>
+              <p>{event.contactEmail}</p>
+              <a href={`mailto:${event.contactEmail}`} className="lime-button">
+                Contact YGE <ExternalLink size={14} aria-hidden="true" />
+              </a>
+              {event.status === "past" && event.recapStorySlug ? (
+                <Link
+                  href={`/stories/${event.recapStorySlug}`}
+                  className="event-register-link"
                 >
-                  <p
-                    className="font-mono text-xs uppercase tracking-widest mb-2"
-                    style={{ color: "var(--color-muted-sage)" }}
-                  >
-                    Contact
-                  </p>
+                  Read the recap
+                </Link>
+              ) : (
+                event.registrationUrl && (
                   <a
-                    href={`mailto:${event.contactEmail}`}
-                    className="font-mono text-sm hover:underline"
-                    style={{ color: "var(--color-acid-leaf)" }}
+                    href={event.registrationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="event-register-link"
                   >
-                    {event.contactEmail}
+                    Register now <ExternalLink size={13} />
                   </a>
-                </div>
+                )
               )}
-              {event.registrationUrl && (
-                <a
-                  href={event.registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 font-mono text-sm uppercase tracking-wider px-5 py-3 rounded-full font-700 w-full transition-all hover:scale-105"
-                  style={{
-                    backgroundColor: "var(--color-acid-leaf)",
-                    color: "var(--color-forest-ink)",
-                  }}
-                >
-                  Register Now <ExternalLink size={14} aria-hidden="true" />
-                </a>
-              )}
-            </aside>
-          </div>
+            </div>
+          </section>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,7 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useId, useState } from "react";
 import { Grid3X3, List, Search, SlidersHorizontal, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import ActiveFilterChips from "./ActiveFilterChips";
 import type {
   FilterOptions,
@@ -20,6 +36,47 @@ type WorkFiltersProps = {
   onClear: () => void;
 };
 
+// Radix Select items cannot use an empty value, so "All" maps to a sentinel.
+const ALL = "__all";
+
+function FilterSelect({
+  id,
+  label,
+  allLabel,
+  value,
+  values,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  allLabel: string;
+  value: string;
+  values: readonly string[];
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label htmlFor={id}>
+      <span>{label}</span>
+      <Select
+        value={value || ALL}
+        onValueChange={(next) => onChange(next === ALL ? "" : next)}
+      >
+        <SelectTrigger id={id} aria-label={label}>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>{allLabel}</SelectItem>
+          {values.map((item) => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </label>
+  );
+}
+
 function FilterControls({
   filters,
   options,
@@ -31,7 +88,7 @@ function FilterControls({
       <label className="work-search" htmlFor={`${idPrefix}-search`}>
         <span>Search programs</span>
         <Search aria-hidden="true" />
-        <input
+        <Input
           id={`${idPrefix}-search`}
           type="search"
           value={filters.query}
@@ -39,71 +96,83 @@ function FilterControls({
           placeholder="Search programs"
         />
       </label>
-      <label htmlFor={`${idPrefix}-category`}>
-        <span>Category</span>
-        <select
-          id={`${idPrefix}-category`}
-          value={filters.category}
-          onChange={(event) => onChange("category", event.target.value)}
-        >
-          <option value="">All categories</option>
-          {options.categories.map((value) => (
-            <option key={value}>{value}</option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor={`${idPrefix}-year`}>
-        <span>Year</span>
-        <select
-          id={`${idPrefix}-year`}
-          value={filters.year}
-          onChange={(event) => onChange("year", event.target.value)}
-        >
-          <option value="">All years</option>
-          {options.years.map((value) => (
-            <option key={value}>{value}</option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor={`${idPrefix}-location`}>
-        <span>Location</span>
-        <select
-          id={`${idPrefix}-location`}
-          value={filters.location}
-          onChange={(event) => onChange("location", event.target.value)}
-        >
-          <option value="">All locations</option>
-          {options.locations.map((value) => (
-            <option key={value}>{value}</option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor={`${idPrefix}-status`}>
-        <span>Status</span>
-        <select
-          id={`${idPrefix}-status`}
-          value={filters.status}
-          onChange={(event) => onChange("status", event.target.value)}
-        >
-          <option value="">All status</option>
-          {options.statuses.map((value) => (
-            <option key={value}>{value}</option>
-          ))}
-        </select>
-      </label>
+      <FilterSelect
+        id={`${idPrefix}-category`}
+        label="Category"
+        allLabel="All categories"
+        value={filters.category}
+        values={options.categories}
+        onChange={(value) => onChange("category", value)}
+      />
+      <FilterSelect
+        id={`${idPrefix}-year`}
+        label="Year"
+        allLabel="All years"
+        value={filters.year}
+        values={options.years}
+        onChange={(value) => onChange("year", value)}
+      />
+      <FilterSelect
+        id={`${idPrefix}-location`}
+        label="Location"
+        allLabel="All locations"
+        value={filters.location}
+        values={options.locations}
+        onChange={(value) => onChange("location", value)}
+      />
+      <FilterSelect
+        id={`${idPrefix}-status`}
+        label="Status"
+        allLabel="All status"
+        value={filters.status}
+        values={options.statuses}
+        onChange={(value) => onChange("status", value)}
+      />
       <label htmlFor={`${idPrefix}-sort`}>
         <span>Sort</span>
-        <select
-          id={`${idPrefix}-sort`}
+        <Select
           value={filters.sort}
-          onChange={(event) => onChange("sort", event.target.value as WorkSort)}
+          onValueChange={(value) => onChange("sort", value as WorkSort)}
         >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="title">Title A–Z</option>
-        </select>
+          <SelectTrigger id={`${idPrefix}-sort`} aria-label="Sort">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">Newest</SelectItem>
+            <SelectItem value="oldest">Oldest</SelectItem>
+            <SelectItem value="title">Title A–Z</SelectItem>
+          </SelectContent>
+        </Select>
       </label>
     </div>
+  );
+}
+
+function ViewToggle({
+  view,
+  onChange,
+  compact = false,
+}: {
+  view: WorkView;
+  onChange: (key: keyof ProgramFilters, value: string) => void;
+  compact?: boolean;
+}) {
+  return (
+    <ToggleGroup
+      type="single"
+      className="work-view-toggle"
+      aria-label="Program view"
+      value={view}
+      // Ignore deselection so one view is always active.
+      onValueChange={(value) => value && onChange("view", value)}
+    >
+      <ToggleGroupItem value="list" aria-label="List view">
+        <List aria-hidden="true" /> {!compact && "List"}
+      </ToggleGroupItem>
+      <ToggleGroupItem value="grid" aria-label="Grid view">
+        <Grid3X3 aria-hidden="true" /> {!compact && "Grid"}
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }
 
@@ -111,27 +180,7 @@ export default function WorkFilters(props: WorkFiltersProps) {
   const { filters, resultCount, onChange, onClear } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const id = useId().replace(/:/g, "");
-  const openButtonRef = useRef<HTMLButtonElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  const closeDrawer = useCallback(() => {
-    setDrawerOpen(false);
-    window.requestAnimationFrame(() => openButtonRef.current?.focus());
-  }, []);
-
-  useEffect(() => {
-    if (!drawerOpen) return;
-    closeButtonRef.current?.focus();
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeDrawer();
-    };
-    document.addEventListener("keydown", closeOnEscape);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      document.body.style.overflow = "";
-    };
-  }, [drawerOpen, closeDrawer]);
+  const results = `${resultCount} result${resultCount === 1 ? "" : "s"}`;
 
   const removeFilter = (key: FilterKey) => onChange(key, "");
   return (
@@ -139,54 +188,43 @@ export default function WorkFilters(props: WorkFiltersProps) {
       <div className="work-filter-bar">
         <div className="work-shell work-filter-desktop">
           <FilterControls {...props} idPrefix={`${id}-desktop`} />
-          <div className="work-view-toggle" aria-label="Program view">
-            <button
-              type="button"
-              aria-pressed={filters.view === "list"}
-              onClick={() => onChange("view", "list" satisfies WorkView)}
-            >
-              <List aria-hidden="true" /> List
-            </button>
-            <button
-              type="button"
-              aria-pressed={filters.view === "grid"}
-              onClick={() => onChange("view", "grid" satisfies WorkView)}
-            >
-              <Grid3X3 aria-hidden="true" /> Grid
-            </button>
-          </div>
+          <ViewToggle view={filters.view} onChange={onChange} />
         </div>
         <div className="work-shell work-filter-mobile">
-          <button
-            ref={openButtonRef}
-            type="button"
-            onClick={() => setDrawerOpen(true)}
-            aria-expanded={drawerOpen}
-            aria-controls="work-filter-drawer"
-          >
-            <SlidersHorizontal aria-hidden="true" /> Filters
-          </button>
-          <span>
-            {resultCount} result{resultCount === 1 ? "" : "s"}
-          </span>
-          <div className="work-view-toggle" aria-label="Program view">
-            <button
-              type="button"
-              aria-label="List view"
-              aria-pressed={filters.view === "list"}
-              onClick={() => onChange("view", "list")}
+          <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+            <SheetTrigger asChild>
+              <button type="button">
+                <SlidersHorizontal aria-hidden="true" /> Filters
+              </button>
+            </SheetTrigger>
+            <SheetContent
+              side="bottom"
+              className="work-filter-drawer"
+              aria-describedby={undefined}
             >
-              <List aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              aria-label="Grid view"
-              aria-pressed={filters.view === "grid"}
-              onClick={() => onChange("view", "grid")}
-            >
-              <Grid3X3 aria-hidden="true" />
-            </button>
-          </div>
+              <header>
+                <SheetTitle asChild>
+                  <h2>Filter programs</h2>
+                </SheetTitle>
+                <SheetClose asChild>
+                  <button type="button" aria-label="Close filters">
+                    <X aria-hidden="true" />
+                  </button>
+                </SheetClose>
+              </header>
+              <FilterControls {...props} idPrefix={`${id}-mobile`} />
+              <footer>
+                <button type="button" onClick={onClear}>
+                  Clear filters
+                </button>
+                <SheetClose asChild>
+                  <button type="button">Show {results}</button>
+                </SheetClose>
+              </footer>
+            </SheetContent>
+          </Sheet>
+          <span aria-live="polite">{results}</span>
+          <ViewToggle view={filters.view} onChange={onChange} compact />
         </div>
       </div>
       <div className="work-shell">
@@ -196,43 +234,6 @@ export default function WorkFilters(props: WorkFiltersProps) {
           onClear={onClear}
         />
       </div>
-      {drawerOpen && (
-        <div
-          className="work-filter-overlay"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) closeDrawer();
-          }}
-        >
-          <section
-            id="work-filter-drawer"
-            className="work-filter-drawer"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="work-filter-title"
-          >
-            <header>
-              <h2 id="work-filter-title">Filter programs</h2>
-              <button
-                ref={closeButtonRef}
-                type="button"
-                onClick={closeDrawer}
-                aria-label="Close filters"
-              >
-                <X aria-hidden="true" />
-              </button>
-            </header>
-            <FilterControls {...props} idPrefix={`${id}-mobile`} />
-            <footer>
-              <button type="button" onClick={onClear}>
-                Clear filters
-              </button>
-              <button type="button" onClick={closeDrawer}>
-                Show {resultCount} result{resultCount === 1 ? "" : "s"}
-              </button>
-            </footer>
-          </section>
-        </div>
-      )}
     </div>
   );
 }

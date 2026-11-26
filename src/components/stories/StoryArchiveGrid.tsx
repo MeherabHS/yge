@@ -4,21 +4,14 @@ import { ArrowRight } from "lucide-react";
 import type { Story } from "@/types";
 import { formatDate, readingTimeLabel } from "@/lib/utils";
 
-const spanPattern = [
-  "stories-archive-span-7",
-  "stories-archive-span-5",
-  "stories-archive-span-4",
-  "stories-archive-span-8",
-];
-
 export default function StoryArchiveGrid({ stories }: { stories: Story[] }) {
   if (stories.length === 0) return null;
 
   return (
     <section className="stories-archive" aria-label="More stories">
-      {stories.map((story, index) => (
+      {stories.map((story) => (
         <article
-          className={`stories-archive-card ${spanPattern[index % spanPattern.length]}`}
+          className="stories-archive-card"
           key={story.slug}
           aria-labelledby={`archive-story-${story.slug}`}
         >
@@ -29,10 +22,13 @@ export default function StoryArchiveGrid({ stories }: { stories: Story[] }) {
             <div className="stories-archive-image">
               <Image
                 src={story.heroImage}
-                alt={`Editorial artwork for ${story.title}`}
+                alt={story.heroAlt ?? `Editorial artwork for ${story.title}`}
                 fill
-                sizes="(min-width: 1024px) 58vw, (min-width: 768px) 50vw, 100vw"
-                className="stories-archive-image-media"
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                unoptimized
+                className={`stories-archive-image-media${
+                  story.heroWidth ? " is-poster" : ""
+                }`}
               />
             </div>
 

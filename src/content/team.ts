@@ -45,7 +45,7 @@ export const teamDepartments: TeamDepartment[] = [
     id: "leadership",
     name: "Leadership",
     number: "01",
-    accent: "#B8FF2C",
+    accent: "var(--color-acid-leaf)",
     order: 1,
   },
   {
@@ -83,7 +83,7 @@ export const teamDepartments: TeamDepartment[] = [
     name: "Administration, HR & Logistics",
     shortName: "Administration",
     number: "06",
-    accent: "#B8FF2C",
+    accent: "var(--color-acid-leaf)",
     order: 6,
   },
 ];

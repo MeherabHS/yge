@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Input } from "@/components/ui/input";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Download, FileText, ArrowRight, BookOpen } from "lucide-react";
@@ -109,8 +111,9 @@ export default function ResourcesPage() {
               size={16}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-muted-sage)]"
             />
-            <input
+            <Input
               type="search"
+              aria-label="Search resources"
               placeholder="Search toolkits, reports, materials..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -118,32 +121,24 @@ export default function ResourcesPage() {
             />
           </div>
 
-          <div className="flex flex-wrap gap-2 items-center">
+          <ToggleGroup
+            type="single"
+            className="resources-type-filter flex flex-wrap gap-2 items-center"
+            aria-label="Filter by resource type"
+            value={activeType}
+            // Ignore deselection so one type is always active.
+            onValueChange={(value) => value && setActiveType(value)}
+          >
             {types.map((type) => (
-              <button
+              <ToggleGroupItem
                 key={type}
-                onClick={() => setActiveType(type)}
+                value={type}
                 className="min-h-11 font-mono text-xs uppercase tracking-wider px-4 py-2 rounded-full border transition-all"
-                style={{
-                  borderColor:
-                    activeType === type
-                      ? "var(--color-future-violet)"
-                      : "rgba(18,60,47,0.2)",
-                  backgroundColor:
-                    activeType === type
-                      ? "var(--color-future-violet)"
-                      : "transparent",
-                  color:
-                    activeType === type
-                      ? "var(--color-paper-white)"
-                      : "var(--color-forest-ink)",
-                  fontWeight: activeType === type ? 700 : 500,
-                }}
               >
                 {type}
-              </button>
+              </ToggleGroupItem>
             ))}
-          </div>
+          </ToggleGroup>
         </div>
       </div>
 

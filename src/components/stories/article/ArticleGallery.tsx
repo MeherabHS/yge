@@ -20,6 +20,7 @@ export default function ArticleGallery({ story }: { story: Story }) {
               alt={`Supporting editorial artwork ${index + 1} for ${story.title}`}
               fill
               sizes="(min-width: 1024px) 52vw, (min-width: 768px) 72vw, 100vw"
+              unoptimized
               className="article-media-image"
             />
           </div>

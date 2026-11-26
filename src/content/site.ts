@@ -51,7 +51,7 @@ export const siteConfig: SiteConfig = {
     linkedin: "https://www.linkedin.com/company/youth-for-a-green-earth/",
   },
   ctas: {
-    primary: { label: "Explore Our Impact", href: "/impact" },
+    primary: { label: "Explore Our Work", href: "/work" },
     secondary: { label: "Contact YGE", href: "/contact" },
     join: { label: "Contact YGE", href: "/contact" },
   },
